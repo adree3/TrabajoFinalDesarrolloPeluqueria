@@ -32,11 +32,12 @@ class DBHelper{
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
 
-      //CITA
+      //CITA (acudido es un boolean)
       await db.execute(''' 
         CREATE TABLE Cita (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
-          hora TEXT, 
+          fecha TEXT, 
+          acudido INTEGER, 
           usuarioId INTEGER, 
           barberoId INTEGER, 
           cortePeloId INTEGER,
@@ -49,6 +50,7 @@ class DBHelper{
         'Cita',
         {
           'fecha': '2024-10-20 13:30:00',
+          'acudido': 1,
           'usuarioId': 1,
           'barberoId': 1,
           'cortePeloId': 1,

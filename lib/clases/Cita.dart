@@ -1,6 +1,7 @@
 class Cita{
   final int? id;
   final String fecha;
+  final int acudido; //boolean
   final int usuarioId;
   final int barberoId;
   final int cortePeloId;
@@ -8,6 +9,7 @@ class Cita{
   Cita({
     this.id,
     required this.fecha,
+    required this.acudido,
     required this.usuarioId,
     required this.barberoId,
     required this.cortePeloId,
@@ -19,6 +21,7 @@ class Cita{
     return{
       'id': id,
       'fecha': fecha,
+      'acudido': acudido,
       'usuarioId': usuarioId,
       'barberoId': barberoId,
       'cortePeloId': cortePeloId,
@@ -29,6 +32,7 @@ class Cita{
     return Cita(
       id: map['id'],
       fecha: map['fecha'], 
+      acudido: map['acudido'], 
       usuarioId: map['usuarioId'], 
       barberoId: map['barberoId'], 
       cortePeloId: map['cortePeloId']
@@ -38,7 +42,7 @@ class Cita{
 
   @override
   String toString(){
-    return 'Cita(id: $id, fecha: $fecha, usuarioId: $usuarioId, barberoId: $barberoId, cortePeloId: $cortePeloId)';
+    return 'Cita(id: $id, fecha: $fecha, acudido: $acudido, usuarioId: $usuarioId, barberoId: $barberoId, cortePeloId: $cortePeloId)';
   }
 
 }
