@@ -26,16 +26,17 @@ class CitasDao {
 
   Future<Map<String,String>?> getCortePeloPorCitaId(int citaId) async{
     final database = await DBHelper().openDataBase();
-    final List<Map<String, dynamic>> maps = await database.rawQuery(''' '
+    final List<Map<String, dynamic>> maps = await database.rawQuery('''
       SELECT CortePelo.nombre, CortePelo.descripcion
       FROM Cita
-      INNER JOIN CortePelo ON Cita.cortePeloId == CortePelo.id
+      JOIN CortePelo ON Cita.cortePeloId == CortePelo.id
       WHERE Cita.id = ?
     ''', [citaId]);
+
     if (maps.isNotEmpty){
       return {
         'nombre': maps[0]['nombre'] as String,
-        'descripcion': maps[0]['descipcion'] as String
+        'descripcion': maps[0]['descripcion'] as String
       };
     }else{
       return null;
