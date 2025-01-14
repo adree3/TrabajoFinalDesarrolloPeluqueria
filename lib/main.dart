@@ -2,16 +2,21 @@ import 'package:flutter/material.dart';
 import 'estructura/P1-IniciarSesion.dart';
 import 'bd/db_helper.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:intl/intl.dart'; 
+import 'package:intl/date_symbol_data_local.dart';
+
+
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  sqfliteFfiInit();
-  databaseFactory = databaseFactoryFfi;
-  await DBHelper().eliminarBD();
-  print("bd eliminada");
-
-  await DBHelper().openDataBase();
-  runApp( const MainApp());
+    WidgetsFlutterBinding.ensureInitialized();
+    sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;
+    await DBHelper().eliminarBD();
+    print("bd eliminada");
+    await DBHelper().openDataBase();
+    await initializeDateFormatting('es_ES', null);
+    runApp(const MainApp());
+  
 }
 
 class MainApp extends StatelessWidget {

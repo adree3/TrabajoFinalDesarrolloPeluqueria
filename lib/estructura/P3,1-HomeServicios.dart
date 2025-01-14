@@ -138,7 +138,7 @@ class _Segunda extends State<Servicios> {
                   SizedBox(width: 10,),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeReserva()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomeReserva(corte: corte)));
                     },
                     child: const Text("Reservar"),
                   ),

@@ -1,13 +1,25 @@
+import 'package:estructuratrabajofinal/clases/CortesPelo.dart';
 import 'package:flutter/material.dart';
-
+import 'package:table_calendar/table_calendar.dart';
 class HomeReserva extends StatefulWidget {
-  const HomeReserva({super.key});
+  final CortePelo corte;
+
+  const HomeReserva({super.key, required this.corte});
 
   @override
   State<HomeReserva> createState() => _Principal();
 }
 
 class _Principal extends State<HomeReserva> {
+  DateTime fechaActual = DateTime.now();
+  DateTime fechaSeleccionada = DateTime.now();
+
+  void _onDaySelected(DateTime day, DateTime focusedDay){
+    setState(() {
+      fechaSeleccionada = day;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,11 +34,12 @@ class _Principal extends State<HomeReserva> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "Selecciona una fecha y hora:",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                Center(
+                  child: Text("${widget.corte.nombre} - ${widget.corte.precio.toString()}€"),
                 ),
                 const SizedBox(height: 10),
+                content(),
+                const SizedBox(height: 10,),
                 Row(
                   children: [
                     const Text("Hora:"),
@@ -75,6 +88,26 @@ class _Principal extends State<HomeReserva> {
           ),
         ),
       ),
+    );
+  }
+  Widget content(){
+    return Column(
+      children: [
+        Container(
+          child: TableCalendar(
+            locale: 'es_ES',
+            rowHeight: 60,
+            headerStyle: HeaderStyle(formatButtonVisible: false, titleCentered: true),
+            availableGestures: AvailableGestures.all,
+            focusedDay: fechaActual,
+            firstDay: fechaActual, 
+            lastDay: DateTime(fechaActual.year, fechaActual.month + 3),
+            selectedDayPredicate: (day)=> isSameDay(day, fechaSeleccionada),
+            onDaySelected: _onDaySelected,
+            
+          ),
+        )
+      ],
     );
   }
 }

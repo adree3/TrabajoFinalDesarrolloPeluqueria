@@ -60,10 +60,11 @@ class _Principal extends State<HomeBarberos>{
                               children: [
                                 SizedBox(height: 5,),
                                 Image.network(barbero.rutaImagenBarbero, height: 150, width: 150, ),
+                                SizedBox(width: 15,),                                
                                 Column(
                                   children: [
                                     Text(barbero.nombre),
-                                    Text(barbero.edad.toString())
+                                    Text("${barbero.edad.toString()} años")
                                   ],
                                 ),  
                                 SizedBox(height: 5,)
