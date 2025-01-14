@@ -37,4 +37,5 @@ class Barbero {
   String toString(){
     return 'Barbero(id: $id, nombre: $nombre, edad: $edad, rutaImagenBarbero: $rutaImagenBarbero, rutaPortafolio: $rutaPortafolio)';
   }
+  //dadaduaiodpijafhoafoia
 }
