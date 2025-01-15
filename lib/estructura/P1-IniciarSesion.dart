@@ -56,6 +56,7 @@ class _Principal extends State<IniciarSesion>{
                   Column(
                     children: [
                       TextFormField(
+                        
                         controller: _emailController,
                         validator: (value){
                           if(value == null||value.isEmpty){
