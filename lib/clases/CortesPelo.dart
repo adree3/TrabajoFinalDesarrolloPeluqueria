@@ -1,3 +1,5 @@
+import 'package:estructuratrabajofinal/bd/db_helper.dart';
+
 class CortePelo {
   final int? id;
   final String nombre;
@@ -32,6 +34,16 @@ class CortePelo {
       duracion: map['duracion'],
     );
   }
+
+  Future<bool> existeCortePelo(int cortePeloId) async {
+  final database = await DBHelper().openDataBase();
+  final List<Map<String, dynamic>> result = await database.query(
+    'CortePelo',
+    where: 'id = ?',
+    whereArgs: [cortePeloId],
+  );
+  return result.isNotEmpty;
+}
 
   @override
   String toString(){

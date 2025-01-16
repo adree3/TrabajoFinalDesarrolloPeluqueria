@@ -32,32 +32,6 @@ class DBHelper{
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
 
-      //CITA (acudido es un boolean)
-      await db.execute(''' 
-        CREATE TABLE Cita (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          fecha TEXT, 
-          acudido INTEGER, 
-          usuarioId INTEGER, 
-          barberoId INTEGER, 
-          cortePeloId INTEGER,
-          FOREIGN KEY(usuarioId) REFERENCES Usuario(id),
-          FOREIGN KEY(barberoId) REFERENCES Barbero(id),
-          FOREIGN KEY(cortePeloId) REFERENCES CortePelo(id)
-        )
-      ''');
-      await db.insert(
-        'Cita',
-        {
-          'fecha': '2024-10-20 13:30:00',
-          'acudido': 1,
-          'usuarioId': 1,
-          'barberoId': 1,
-          'cortePeloId': 1,
-        },
-        conflictAlgorithm: ConflictAlgorithm.replace,
-      );
-
       //CORTE DE PELO
       await db.execute(''' 
         CREATE TABLE CortePelo (
@@ -129,6 +103,32 @@ class DBHelper{
         },
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
+
+      //CITA (acudido es un boolean)
+      await db.execute(''' 
+        CREATE TABLE Cita (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          fecha TEXT, 
+          acudido INTEGER, 
+          usuarioId INTEGER, 
+          barberoId INTEGER, 
+          cortePeloId INTEGER,
+          FOREIGN KEY(usuarioId) REFERENCES Usuario(id),
+          FOREIGN KEY(barberoId) REFERENCES Barbero(id),
+          FOREIGN KEY(cortePeloId) REFERENCES CortePelo(id) ON DELETE SET NULL
+        )
+      ''');
+      await db.insert(
+        'Cita',
+        {
+          'fecha': '2024-10-20 13:30:00',
+          'acudido': 1,
+          'usuarioId': 1,
+          'barberoId': 1,
+          'cortePeloId': 1,
+        },
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      ); 
       
     } catch (e) {
       print("Error al crear la base de datos o insertar datos: $e");

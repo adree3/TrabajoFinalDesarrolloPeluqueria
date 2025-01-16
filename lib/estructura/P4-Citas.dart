@@ -1,4 +1,3 @@
-import 'package:estructuratrabajofinal/bd/db_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:estructuratrabajofinal/clases/Cita.dart';
 import 'package:estructuratrabajofinal/dao/CitasDAO.dart';
@@ -66,6 +65,7 @@ class _Principal extends State<Citas>{
               final citaData= listaCitas[index];
               final Cita cita = citaData['cita'] as Cita;
               final Map<String, dynamic>? corteInfo = citaData['corte'] as Map<String, dynamic>?;
+              print(corteInfo);
               String acudidoText="";
               DateTime fecha = DateTime.parse(cita.fecha);
               String hora = fecha.hour.toString().padLeft(2,'0') + ':' 
@@ -89,7 +89,7 @@ class _Principal extends State<Citas>{
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(corteInfo?['Nombre']??"Corte no disponible"),
+                              Text(corteInfo?['nombre']??"Corte no disponible"),
                               const SizedBox(height: 5,),
                               Text(corteInfo?['descripcion']??"No hay descripcion")
                             ],

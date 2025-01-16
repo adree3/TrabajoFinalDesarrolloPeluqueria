@@ -1,18 +1,28 @@
 import 'package:estructuratrabajofinal/bd/db_helper.dart';
 import 'package:estructuratrabajofinal/clases/Cita.dart';
-import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 
 class CitasDao {
   
   Future<void> addCita(Cita cita) async{
     final database= await DBHelper().openDataBase();
-    await database.insert(
-      'Cita', 
-      cita.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace
+    final List<Map<String, dynamic>> result = await database.query(
+      'CortePelo',
+      where: 'id = ?',
+      whereArgs: [cita.cortePeloId],
     );
-    print('Cita creada');
+    if(result.isNotEmpty){
+      await database.insert(
+        'Cita', 
+        cita.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace
+      );
+      print('Cita creada $cita');
+    }else{
+      print("Error con ${cita.cortePeloId}");
+    }
+
+    
   }
   
   Future<void> eliminarCita(Cita cita) async{
@@ -30,21 +40,22 @@ class CitasDao {
   }
 
 
-  Future<Map<String,String>?> getCortePeloPorCitaId(int citaId) async{
+    Future<Map<String, String>?> getCortePeloPorCitaId(int citaId) async {
     final database = await DBHelper().openDataBase();
     final List<Map<String, dynamic>> maps = await database.rawQuery('''
       SELECT CortePelo.nombre, CortePelo.descripcion
       FROM Cita
-      JOIN CortePelo ON Cita.cortePeloId == CortePelo.id
+      JOIN CortePelo ON Cita.cortePeloId = CortePelo.id
       WHERE Cita.id = ?
     ''', [citaId]);
 
-    if (maps.isNotEmpty){
+    if (maps.isNotEmpty) {
       return {
         'nombre': maps[0]['nombre'] as String,
-        'descripcion': maps[0]['descripcion'] as String
+        'descripcion': maps[0]['descripcion'] as String,
       };
-    }else{
+    } else {
+      print('No se encontró ningún corte asociado para la cita con ID: $citaId');
       return null;
     }
   }
