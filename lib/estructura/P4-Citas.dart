@@ -106,7 +106,12 @@ class _Principal extends State<Citas>{
                       ],
                     ),
                     trailing: IconButton(
-                      onPressed: (){},
+                      onPressed: () async{
+                        await CitasDao().eliminarCita(cita);                                                    
+                        setState(() {
+                          _citasConCortes = _cargarCitasConCortes();
+                        });
+                      },
                       icon: const Icon(Icons.delete)
                     ),
                     leading: Column( 

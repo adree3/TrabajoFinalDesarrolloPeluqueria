@@ -1,6 +1,7 @@
 import 'package:estructuratrabajofinal/clases/Barbero.dart';
 import 'package:estructuratrabajofinal/clases/Cita.dart';
 import 'package:estructuratrabajofinal/clases/CortesPelo.dart';
+import 'package:estructuratrabajofinal/clases/Usuario.dart';
 import 'package:estructuratrabajofinal/dao/BarberoDAO.dart';
 import 'package:estructuratrabajofinal/dao/CitasDAO.dart';
 import 'package:flutter/material.dart';
@@ -150,8 +151,8 @@ class _Principal extends State<HomeReserva> {
                       String fechaCompleta= _devolverFecha(horaSeleccionada, fechaSeleccionada);
                       int barberoid = barberoSeleccionado!.id!;
                       int corteid= widget.corte.id!;
-                      Cita cita =Cita(fecha: fechaCompleta, acudido: 0, usuarioId: 1, barberoId: barberoid, cortePeloId: corteid);
-                      //CitasDao().addCita(cita);
+                      Cita cita =Cita(fecha: fechaCompleta, acudido: 0, usuarioId: Usuario.usuarioActual!.id!, barberoId: barberoid, cortePeloId: corteid);
+                      CitasDao().addCita(cita);
                     },
                     child: const Text("Reservar"),
                   ),

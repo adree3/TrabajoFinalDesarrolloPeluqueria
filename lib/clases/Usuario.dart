@@ -4,7 +4,7 @@ class Usuario {
   final String contrasena;
   final String email;
   final int telefono;
-  
+  static Usuario? usuarioActual;
   Usuario({
     this.id,
     required this.nombre,

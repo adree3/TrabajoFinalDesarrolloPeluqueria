@@ -15,6 +15,12 @@ class CitasDao {
     print('Cita creada');
   }
   
+  Future<void> eliminarCita(Cita cita) async{
+    final database = await DBHelper().openDataBase();
+    database.delete("Cita", where: "id=?", whereArgs: [cita.id]);
+    print("usuario eliminado");
+    
+  }
 
   Future<List<Cita>> getCitas() async {
     final database = await DBHelper().openDataBase();

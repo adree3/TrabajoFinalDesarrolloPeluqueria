@@ -21,4 +21,18 @@ class UsuarioDao {
     
     return List.generate(maps.length, (i)=> Usuario.fromMap(maps[i]));
   }
+
+  Future<Usuario?> obtenerUsuarioPorId(int idUsuario)async{
+    final database = await DBHelper().openDataBase();
+    final List<Map<String, dynamic>> res = await database.rawQuery('''
+      SELECT *
+      FROM Usuario
+      WHERE id = ?
+    ''', [idUsuario]);
+    if (res.isNotEmpty){
+      return Usuario.fromMap(res.first);
+    }else{
+      return null;
+    }
+  }
 }

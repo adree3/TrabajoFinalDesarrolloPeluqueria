@@ -31,6 +31,8 @@ class _Principal extends State<IniciarSesion>{
     }
     if(user != null){
       print("iniciando sesión");
+      Usuario.usuarioActual = user;
+      print(user);
       Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeServicios()));
     }else{
       ScaffoldMessenger.of(context).showSnackBar(
