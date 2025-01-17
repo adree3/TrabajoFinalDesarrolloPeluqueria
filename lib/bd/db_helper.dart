@@ -113,9 +113,9 @@ class DBHelper{
           usuarioId INTEGER, 
           barberoId INTEGER, 
           cortePeloId INTEGER,
-          FOREIGN KEY(usuarioId) REFERENCES Usuario(id),
-          FOREIGN KEY(barberoId) REFERENCES Barbero(id),
-          FOREIGN KEY(cortePeloId) REFERENCES CortePelo(id) ON DELETE SET NULL
+          FOREIGN KEY(usuarioId) REFERENCES Usuario(id) ON DELETE NO ACTION,
+          FOREIGN KEY(barberoId) REFERENCES Barbero(id) ON DELETE NO ACTION,
+          FOREIGN KEY(cortePeloId) REFERENCES CortePelo(id)ON DELETE NO ACTION
         )
       ''');
       await db.insert(

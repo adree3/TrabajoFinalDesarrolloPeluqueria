@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'estructura/P1-IniciarSesion.dart';
 import 'bd/db_helper.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-import 'package:intl/intl.dart'; 
 import 'package:intl/date_symbol_data_local.dart';
 
 
