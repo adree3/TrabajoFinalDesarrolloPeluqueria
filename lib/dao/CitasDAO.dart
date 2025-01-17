@@ -27,8 +27,9 @@ class CitasDao {
   
   Future<void> eliminarCita(Cita cita) async{
     final database = await DBHelper().openDataBase();
-    database.delete("Cita", where: "id=?", whereArgs: [cita.id]);
-    print("usuario eliminado");
+    await database.delete("Cita", where: "id=?", whereArgs: [cita.id]);
+    print("usuario eliminado $cita \n");
+
     
   }
 
@@ -39,8 +40,7 @@ class CitasDao {
     return List.generate(maps.length, (i) => Cita.fromMap(maps[i]));
   }
 
-
-    Future<Map<String, String>?> getCortePeloPorCitaId(int citaId) async {
+  Future<Map<String, String>?> getCortePeloPorCitaId(int citaId) async {
     final database = await DBHelper().openDataBase();
     final List<Map<String, dynamic>> maps = await database.rawQuery('''
       SELECT CortePelo.nombre, CortePelo.descripcion
@@ -55,7 +55,7 @@ class CitasDao {
         'descripcion': maps[0]['descripcion'] as String,
       };
     } else {
-      print('No se encontró ningún corte asociado para la cita con ID: $citaId');
+        print('No se encontró ningún corte asociado para la cita con ID: $citaId');
       return null;
     }
   }

@@ -34,6 +34,6 @@ class Usuario {
   }
   @override
   String toString(){
-     return 'Usuario(id: $id, nombre: $nombre, email: $email, telefono: $telefono)'; 
+     return 'Usuario(id: $id, nombre: $nombre, email: $email, contraseña: $contrasena, telefono: $telefono)'; 
   }
 }

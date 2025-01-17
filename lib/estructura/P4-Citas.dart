@@ -13,18 +13,25 @@ class _Principal extends State<Citas>{
     super.initState();
     _citasConCortes = _cargarCitasConCortes();
   }
-  Future<List<Map<String, dynamic>>> _cargarCitasConCortes() async{
-    final citas = await CitasDao().getCitas();
-    final List<Map<String, dynamic>> citasConCortes = [];
-    for (final cita in citas){
-      final corteInfo = await CitasDao().getCortePeloPorCitaId(cita.cortePeloId);
-      citasConCortes.add({
-        'cita': cita,
-        'corte': corteInfo
-      });
+  Future<List<Map<String, dynamic>>> _cargarCitasConCortes() async {
+    try {
+      final dao = CitasDao();
+      final citas = await dao.getCitas();
+      final List<Map<String, dynamic>> citasConCortes = [];
+      for (final cita in citas) {
+        final corteInfo = await dao.getCortePeloPorCitaId(cita.cortePeloId);
+        citasConCortes.add({
+          'cita': cita,
+          'corte': corteInfo,
+        });
+      }
+      return citasConCortes;
+    } catch (e, stackTrace) {
+      debugPrint('Error loading citas: $e\n$stackTrace');
+      return [];
     }
-    return citasConCortes;
   }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -41,17 +48,18 @@ class _Principal extends State<Citas>{
             child: Text("error: ${snapshot.error}"),
           );
         }
-        
 
-        if(snapshot.connectionState==ConnectionState.done){
-          print("datos recibidos");
-          print(snapshot.data);
-        }
         if(snapshot.data==null|| snapshot.data!.isEmpty){
           return const Center(
             child: Text("No hay citas disponibles"),
           );
         }
+
+        if(snapshot.connectionState==ConnectionState.done){
+          print("datos recibidos");
+          print(snapshot.data);
+        }
+       
         
         final listaCitas = snapshot.data!;
         
@@ -89,11 +97,19 @@ class _Principal extends State<Citas>{
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(corteInfo?['nombre']??"Corte no disponible"),
-                              const SizedBox(height: 5,),
-                              Text(corteInfo?['descripcion']??"No hay descripcion")
+                              Text(
+                                corteInfo?['nombre'] ?? "Corte no disponible",
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              ),
+                              const SizedBox(height: 5),
+                              Text(
+                                corteInfo?['descripcion'] ?? "No hay descripcion",
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2,
+                              ),
                             ],
-                          ) 
+                          ),
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

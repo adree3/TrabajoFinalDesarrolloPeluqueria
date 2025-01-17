@@ -4,7 +4,6 @@ import 'package:sqflite/sqflite.dart';
 
 class DBHelper{
   Future<Database> openDataBase() async {
-  print("creando bd");
   final databasePath = await getDatabasesPath();
   final path = join(databasePath, 'peluqueria.db');
 
@@ -69,6 +68,16 @@ class DBHelper{
           'descripcion': 'corte al 0 espectacular',
           'precio': 15,
           'duracion': 20,
+        },
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+      await db.insert(
+        'CortePelo',
+        {
+          'nombre': 'aaaaaaa Ronaldo nazario',
+          'descripcion': 'ddddd al 0 espectacular',
+          'precio': 222,
+          'duracion': 222,
         },
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
