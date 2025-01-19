@@ -1,10 +1,11 @@
 import 'package:estructuratrabajofinal/bd/db_helper.dart';
 import 'package:estructuratrabajofinal/clases/Cita.dart';
+import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart';
 
 class CitasDao {
   
-  Future<void> addCita(Cita cita) async{
+  Future<bool> addCita(Cita cita) async{
     final database= await DBHelper().openDataBase();
     final List<Map<String, dynamic>> result = await database.query(
       'CortePelo',
@@ -18,8 +19,10 @@ class CitasDao {
         conflictAlgorithm: ConflictAlgorithm.replace
       );
       print('Cita creada $cita');
+      return true;
     }else{
       print("Error con ${cita.cortePeloId}");
+      return false;
     }
 
     
@@ -37,6 +40,17 @@ class CitasDao {
     final database = await DBHelper().openDataBase();
     final List<Map<String, dynamic>> maps = await database.query('Cita');
     print("Consulta Cita: $maps"); 
+    return List.generate(maps.length, (i) => Cita.fromMap(maps[i]));
+  }
+
+  Future<List<Cita>> getCitasPorIdUsuario(int idUsuario) async {
+    final database = await DBHelper().openDataBase();
+    final List<Map<String, dynamic>> maps = await database.query(
+      'Cita',
+      where: 'usuarioId = ?',
+      whereArgs: [idUsuario]
+    );
+    print("Consulta Cita por idUsuario: $maps"); 
     return List.generate(maps.length, (i) => Cita.fromMap(maps[i]));
   }
 
@@ -58,5 +72,17 @@ class CitasDao {
         print('No se encontró ningún corte asociado para la cita con ID: $citaId');
       return null;
     }
+  }
+  Future<void> actualizarAcudido() async{
+    final database = await DBHelper().openDataBase();
+    final fechaActual = DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());
+
+    await database.rawUpdate(
+      '''
+      UPDATE Cita
+      SET acudido = 1
+      WHERE fecha < ?
+      ''', [fechaActual]
+    );
   }
 }

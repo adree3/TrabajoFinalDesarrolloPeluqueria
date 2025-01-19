@@ -30,23 +30,23 @@ class _Principal extends State<HomeReserva> {
   void _onDaySelected(DateTime day, DateTime focusedDay){
     setState(() {
       fechaSeleccionada = day;
-      print(horaSeleccionada);
-      print(fechaSeleccionada.day);
+      //print(horaSeleccionada);
+      //print(fechaSeleccionada.day);
     });
   }
   String _devolverFecha(String horaSeleccionada, DateTime fechaSeleccionada){
     final fechaFormateada = DateFormat('yyyy-MM-dd').format(fechaSeleccionada);
     String fechaCompleta = "$fechaFormateada $horaSeleccionada:00";
-    print(fechaCompleta);
+    //print(fechaCompleta);
     return fechaCompleta;
   }
   
-  List<String> listaHoras = ['10:00', '11:30', '13:00', '16:30', '18:00', '20:30' , '21:30'  ];
+  List<String> listaHoras = ['10:00', '11:30', '13:00', '16:30', '18:00', '20:36' , '21:30'  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Nombre"),
+        title: Text("${widget.corte.nombre} - ${widget.corte.precio.toString()}€"),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -54,19 +54,17 @@ class _Principal extends State<HomeReserva> {
           padding: const EdgeInsets.all(16.0),
           child: Form(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Center(
-                  child: Text("${widget.corte.nombre} - ${widget.corte.precio.toString()}€"),
-                ),
-                const SizedBox(height: 10),
-                content(),
+                calendario(),
                 const SizedBox(height: 10,),
-                SizedBox(
-                  height: 60,
-                  
-                  child: Center(
-                    child: ListView.builder(
+                Divider(),
+                const SizedBox(height: 5),
+                Align(
+                    alignment: Alignment.center,
+                    child: SizedBox(
+                  height: 40,
+                  child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                         itemCount: listaHoras.length,
                         itemBuilder: (context, index){       
@@ -74,35 +72,34 @@ class _Principal extends State<HomeReserva> {
                           bool isSelected = hora == horaSeleccionada;
 
                           return Padding(
-                            padding: const EdgeInsets.all(8),
-                                child: Container(
-                                width: 100,
-                                child: Center(
-                                  child: ElevatedButton(
-                                    onPressed: (){
-                                      setState(() {
-                                        horaSeleccionada = hora;
-                                      });
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      foregroundColor: isSelected? Colors.white : const Color.fromARGB(255, 164, 80, 179),
-                                      backgroundColor: isSelected ? Colors.blue : Colors.white,
-
-                                    ),
-                                    child: Text(hora)
-                                  ),
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: ElevatedButton(
+                              onPressed: (){
+                                setState(() {
+                                  horaSeleccionada = hora;
+                                });
+                              },
+                              style: ElevatedButton.styleFrom(
+                                foregroundColor: isSelected? Colors.white : const Color.fromARGB(255, 164, 80, 179),
+                                backgroundColor: isSelected ? Colors.blue : Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
                                 ),
                               ),
+                              child: Text(hora)
+                            ),
                           );
                         }
-                      ),
-                  )
+                    ),
+                  ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 5),
+                Divider(),
+                const SizedBox(height: 10),
                 Row(
                   children: [
                     const Text("Barbero:"),
-                    const SizedBox(width: 10),
+                      const SizedBox(width: 10),
                     Expanded(
                       child: FutureBuilder(
                         future: _barberos, 
@@ -147,14 +144,53 @@ class _Principal extends State<HomeReserva> {
                 const SizedBox(height: 30),
                 Center(
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
+                      if(horaSeleccionada.isEmpty || barberoSeleccionado ==null){
+                        showDialog(
+                          context: context,
+                          barrierDismissible: true,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              content: Text("Rellena todos los campos",
+                                textAlign: TextAlign.center,
+                              ),
+                            );
+                          },
+                        );
+                        return;
+                      }
                       String fechaCompleta= _devolverFecha(horaSeleccionada, fechaSeleccionada);
+                      DateTime fechaCita = DateTime.parse(fechaCompleta);
+                      DateTime fechaActual = DateTime.now();
+                      int acudido = fechaCita.isBefore(fechaActual) ? 1: 0;
+                      print(acudido);
                       int barberoid = barberoSeleccionado!.id!;
                       int corteid= widget.corte.id!;
-                      Cita cita =Cita(fecha: fechaCompleta, acudido: 0, usuarioId: Usuario.usuarioActual!.id!, barberoId: barberoid, cortePeloId: corteid);
-                      CitasDao().addCita(cita);
+                      Cita cita =Cita(fecha: fechaCompleta, acudido: acudido, usuarioId: Usuario.usuarioActual!.id!, barberoId: barberoid, cortePeloId: corteid);
+                      if(await CitasDao().addCita(cita)){
+                        Navigator.pop(context);
+                      }else{
+                        showDialog(
+                          context: context,
+                          barrierDismissible: true, // Cierra el diálogo al tocar fuera
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              content: Text("No se pudo crear la cita",
+                                textAlign: TextAlign.center,
+                              ),
+                            );
+                          },
+                        );
+                      }
+
                     },
                     child: const Text("Reservar"),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -164,12 +200,10 @@ class _Principal extends State<HomeReserva> {
       ),
     );
   }
-  Widget content(){
-    return Column(
-      children: [
-        Center(
+  Widget calendario(){
+    return Center(
           child: Container(
-            width: 400,
+            width: 500,
             child: TableCalendar(
               locale: 'es_ES',
               rowHeight: 60,
@@ -184,8 +218,6 @@ class _Principal extends State<HomeReserva> {
               startingDayOfWeek: StartingDayOfWeek.monday,
             ),
           ),
-        )
-      ],
-    );
+        );
   }
 }

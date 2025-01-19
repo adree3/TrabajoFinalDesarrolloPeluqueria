@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:estructuratrabajofinal/clases/Cita.dart';
 import 'package:estructuratrabajofinal/dao/CitasDAO.dart';
+import 'package:estructuratrabajofinal/clases/Usuario.dart';
 
 class Citas extends StatefulWidget {
   const Citas({super.key});
   State<Citas> createState()=> _Principal();
 }
 class _Principal extends State<Citas>{
+  
   late Future<List<Map<String,dynamic>>>_citasConCortes;
   @override
   void initState() {
     super.initState();
-    _citasConCortes = _cargarCitasConCortes();
+    actualizarAcudidoRecargar();
   }
   Future<List<Map<String, dynamic>>> _cargarCitasConCortes() async {
     try {
-      final dao = CitasDao();
-      final citas = await dao.getCitas();
+      final citas = await CitasDao().getCitasPorIdUsuario(Usuario.usuarioActual!.id!);
       final List<Map<String, dynamic>> citasConCortes = [];
       for (final cita in citas) {
-        final corteInfo = await dao.getCortePeloPorCitaId(cita.cortePeloId);
+        final corteInfo = await CitasDao().getCortePeloPorCitaId(cita.cortePeloId);
         citasConCortes.add({
           'cita': cita,
           'corte': corteInfo,
@@ -31,9 +32,47 @@ class _Principal extends State<Citas>{
       return [];
     }
   }
+  void actualizarAcudidoRecargar()async{
+    await CitasDao().actualizarAcudido();
+    setState(() {
+      _citasConCortes = _cargarCitasConCortes();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    String nombreMes(String numMes){
+      String mes = "";
+      switch(numMes){
+        case "1": 
+          mes= "enero";
+        case "2": 
+          mes= "febrero";
+        case "3": 
+          mes= "marzo";
+        case "4": 
+          mes= "abril";
+        case "5": 
+          mes= "mayo";
+        case "6": 
+          mes= "junio";
+        case "7": 
+          mes= "julio";
+        case "8": 
+          mes= "agosto";
+        case "9": 
+          mes= "septiembre";
+        case "10": 
+          mes= "octubre";
+        case "11": 
+          mes= "noviembre";
+        case "12": 
+          mes= "diciembre";
+        default:
+          mes = "error";
+      }
+      return mes;
+    }
     return FutureBuilder(
       future: _citasConCortes, 
       builder: (context, snapshot){
@@ -53,14 +92,7 @@ class _Principal extends State<Citas>{
           return const Center(
             child: Text("No hay citas disponibles"),
           );
-        }
-
-        if(snapshot.connectionState==ConnectionState.done){
-          print("datos recibidos");
-          print(snapshot.data);
-        }
-       
-        
+        }               
         final listaCitas = snapshot.data!;
         
         return Scaffold(
@@ -79,7 +111,7 @@ class _Principal extends State<Citas>{
               String hora = fecha.hour.toString().padLeft(2,'0') + ':' 
                 + fecha.minute.toString().padLeft(2, '0');
               String dia = fecha.day.toString().padLeft(2,'0');
-              String mes = fecha.month.toString().padLeft(2,'0');
+              String mes = fecha.month.toString();
               if(cita.acudido==1){
                 acudidoText = "Acudido";
               }else if(cita.acudido==0){
@@ -112,11 +144,11 @@ class _Principal extends State<Citas>{
                           ),
                         ),
                         Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [ 
                             Text(hora),
                             Text(dia),
-                            Text(mes)
+                            Text(nombreMes(mes))
                           ],
                         )
                       ],

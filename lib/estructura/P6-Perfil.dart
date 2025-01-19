@@ -2,7 +2,6 @@ import 'package:estructuratrabajofinal/clases/Usuario.dart';
 import 'package:estructuratrabajofinal/dao/UsuarioDAO.dart';
 import 'package:estructuratrabajofinal/estructura/P1-IniciarSesion.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class Perfil extends StatelessWidget {
   const Perfil({super.key});
