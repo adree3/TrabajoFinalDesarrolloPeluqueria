@@ -44,11 +44,7 @@ class _Principal extends State<IniciarSesion>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0x00d4e7ee), 
-      appBar: AppBar(
-        title: const Text("Iniciar Sesión"),
-        backgroundColor: const Color(0x004C6770),
-      ),
+      backgroundColor: Color.fromARGB(255, 51, 51, 51),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: SingleChildScrollView(
@@ -58,69 +54,87 @@ class _Principal extends State<IniciarSesion>{
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 40,),
-                    Form(
-                      key: _formKey,
-                      child: 
-                      Column(
-                        children: [
-                          TextFormField(
-                            
-                            controller: _emailController,
-                            validator: (value){
-                              if(value == null||value.isEmpty){
-                                return "Introduce un email";
-                              }
-                              return null;
-
-                            },
-                            decoration: const InputDecoration(
-                              labelText: "Email",
-                              border: OutlineInputBorder(),
-                              prefixIcon: Icon(Icons.email),
-                              contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20)
-                            ),
-
-                          ),
-                          const SizedBox(height: 15,),
-                          TextFormField(
-                            controller: _contrasenaController,
-                            obscureText: true,
-                            validator: (value){
-                              if(value == null||value.isEmpty){
-                                return "Introduce tu contraseña";
-                              }
-                              return null;
-                            },
-                            decoration: const InputDecoration(
-                              labelText: "Contraseña",
-                              border: OutlineInputBorder(),
-                              prefixIcon: Icon(Icons.lock),
-                              contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20)
-                            ),
-
-                          ),
-                          ElevatedButton(onPressed: () {
-                            if(_formKey.currentState!.validate()){
-                                _login();
-                              }
-                          },style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blueAccent,
-                            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
-                            textStyle: const TextStyle(fontSize: 16),
-                          ), 
-                          child: const Text("Iniciar sesión")),
-                          Row(
+                    const SizedBox(height: 20,),                                    
+                    Text("IDENTIFÍCATE", style: TextStyle(color: Colors.white, fontSize: 50, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 60,),
+                      Form(
+                        key: _formKey,
+                        child: Container(
+                          width: 700,
+                          child: Column(
                             children: [
-                              const Text("Si no tienes cuenta"),
-                              ElevatedButton(onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => const Registrarse()));
-                              }, child: const Text("Registrate"))
-                            ],
-                          )
-                        ],
+                            TextFormField(                              
+                              controller: _emailController,
+                              validator: (value){
+                                if(value == null||value.isEmpty){
+                                  return "Introduce un email";
+                                }
+                                return null;
+                              },
+                              decoration: const InputDecoration(
+                                labelText: "Email",
+                                prefixIcon: Icon(Icons.email,),
+                                contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20)
+
+                              ),
+                              style: TextStyle(color: Color(0xFFfdf7e5)),
+
+                            ),
+                            const SizedBox(height: 15,),
+                            TextFormField(
+                              controller: _contrasenaController,
+                              obscureText: true,
+                              validator: (value){
+                                if(value == null||value.isEmpty){
+                                  return "Introduce tu contraseña";
+                                }
+                                return null;
+                              },
+                              decoration: const InputDecoration(
+                                labelText: "Contraseña",
+                                prefixIcon: Icon(Icons.lock),
+                                contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20)
+                              ),
+                              style: TextStyle(color: Color(0xFFfdf7e5)),
+
+                            ),
+                            const SizedBox(height: 20,),
+                            ElevatedButton(onPressed: () {
+                              if(_formKey.currentState!.validate()){
+                                  _login();
+                                }
+                            },style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.transparent,
+                              shadowColor: Colors.transparent,
+                              foregroundColor: Color(0xFFffffff),
+                              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+                              textStyle: const TextStyle(fontSize: 30),
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.zero,
+                                side: BorderSide(
+                                  color: Colors.white,
+                                  width: 0.5
+                                )
+                                                              
+                              )
+                            
+                            ), 
+                            child: const Text("Inicia sesión")),
+
+                            Row(
+                              children: [
+                                const Text("Si no tienes cuenta"),
+                                ElevatedButton(onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const Registrarse()));
+                                }, child: const Text("Registrate"))
+                              ],
+                            )
+                          ],
+                          ),
+                          
+                        )
                       )
-                    )
+                    
                   ],
                 ),
               )

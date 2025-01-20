@@ -23,8 +23,22 @@ class MainApp extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: IniciarSesion()
+    return  MaterialApp(
+      theme: ThemeData(
+        inputDecorationTheme: const InputDecorationTheme(
+          labelStyle: TextStyle(color: Colors.white),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Color.fromARGB(255, 223, 222, 222))
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.white)
+          ),
+          prefixIconColor: Colors.white
+
+        )
+      ),
+      home: const IniciarSesion(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
