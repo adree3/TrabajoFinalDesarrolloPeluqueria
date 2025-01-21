@@ -85,4 +85,37 @@ class CitasDao {
       ''', [fechaActual]
     );
   }
+
+  Future<Map<int, Map<String, int>>> obtenerEstadisticasCitas() async {
+    final database = await DBHelper().openDataBase();
+    final result = await database.rawQuery('''
+      SELECT 
+        strftime('%m', fecha) AS mes,
+        acudido,
+        COUNT(*) AS total
+      FROM Cita
+      GROUP BY mes, acudido
+      ORDER BY mes
+    ''');
+    print(result);
+    Map<int, Map<String, int>> estadisticas = {};
+
+    for (var row in result) {
+      int mes = int.tryParse(row['mes']?.toString()?? '0')?? 0;
+      int acudido = row['acudido'] is int ? row['acudido']as int: 0;
+      int total = row['total'] is int ? row['total']as int : 0;
+
+      if (!estadisticas.containsKey(mes)) {
+        estadisticas[mes] = {'Acudido': 0, 'No Acudido': 0};
+      }
+      if (acudido == 1) {
+        estadisticas[mes]!['Acudido'] = total;
+      } else {
+        estadisticas[mes]!['No acudido'] = total;
+      }
+    }
+
+    return estadisticas;
+  }
+  
 }

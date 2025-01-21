@@ -130,7 +130,7 @@ class DBHelper{
       await db.insert(
         'Cita',
         {
-          'fecha': '2024-10-20 13:30:00',
+          'fecha': '2024-01-20 13:30:00',
           'acudido': 1,
           'usuarioId': 1,
           'barberoId': 1,

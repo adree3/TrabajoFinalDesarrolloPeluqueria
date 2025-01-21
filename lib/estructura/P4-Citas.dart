@@ -9,7 +9,7 @@ class Citas extends StatefulWidget {
 }
 class _Principal extends State<Citas>{
   
-  late Future<List<Map<String,dynamic>>>_citasConCortes;
+  late Future<List<Map<String,dynamic>>>_citasConCortes = Future.value([]);
   @override
   void initState() {
     super.initState();
