@@ -105,7 +105,7 @@ class _Principal extends State<HomeReserva> {
                         future: _barberos, 
                         builder: (context, snapshot){
                           if(snapshot.connectionState==ConnectionState.waiting){
-                            return Center(
+                            return const Center(
                               child: CircularProgressIndicator(),
                             );
                           }
@@ -150,7 +150,7 @@ class _Principal extends State<HomeReserva> {
                           context: context,
                           barrierDismissible: true,
                           builder: (BuildContext context) {
-                            return AlertDialog(
+                            return const AlertDialog(
                               content: Text("Rellena todos los campos",
                                 textAlign: TextAlign.center,
                               ),
@@ -174,7 +174,7 @@ class _Principal extends State<HomeReserva> {
                           context: context,
                           barrierDismissible: true, // Cierra el diálogo al tocar fuera
                           builder: (BuildContext context) {
-                            return AlertDialog(
+                            return const AlertDialog(
                               content: Text("No se pudo crear la cita",
                                 textAlign: TextAlign.center,
                               ),

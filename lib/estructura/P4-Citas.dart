@@ -39,39 +39,45 @@ class _Principal extends State<Citas>{
     });
   }
 
+  Color colorAcudido(String text){
+    if(text=="Acudido"){
+      return Colors.green;
+    }else{
+      return Colors.red;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     String nombreMes(String numMes){
-      String mes = "";
-      switch(numMes){
-        case "1": 
-          mes= "enero";
-        case "2": 
-          mes= "febrero";
-        case "3": 
-          mes= "marzo";
-        case "4": 
-          mes= "abril";
-        case "5": 
-          mes= "mayo";
-        case "6": 
-          mes= "junio";
-        case "7": 
-          mes= "julio";
-        case "8": 
-          mes= "agosto";
-        case "9": 
-          mes= "septiembre";
-        case "10": 
-          mes= "octubre";
-        case "11": 
-          mes= "noviembre";
-        case "12": 
-          mes= "diciembre";
+      switch (numMes) {
+        case "1":
+          return "enero";
+        case "2":
+          return "febrero";
+        case "3":
+          return "marzo";
+        case "4":
+          return "abril";
+        case "5":
+          return "mayo";
+        case "6":
+          return "junio";
+        case "7":
+          return "julio";
+        case "8":
+          return "agosto";
+        case "9":
+          return "septiembre";
+        case "10":
+          return "octubre";
+        case "11":
+          return "noviembre";
+        case "12":
+          return "diciembre";
         default:
-          mes = "error";
+          return "error";
       }
-      return mes;
     }
     return FutureBuilder(
       future: _citasConCortes, 
@@ -108,8 +114,7 @@ class _Principal extends State<Citas>{
               print(corteInfo);
               String acudidoText="";
               DateTime fecha = DateTime.parse(cita.fecha);
-              String hora = fecha.hour.toString().padLeft(2,'0') + ':' 
-                + fecha.minute.toString().padLeft(2, '0');
+              String hora = '${fecha.hour.toString().padLeft(2,'0')}:${fecha.minute.toString().padLeft(2, '0')}';
               String dia = fecha.day.toString().padLeft(2,'0');
               String mes = fecha.month.toString();
               if(cita.acudido==1){
@@ -118,7 +123,7 @@ class _Principal extends State<Citas>{
                 acudidoText = "No acudido";
               }
               return Padding(
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 child: Card(
                   elevation: 4,
                   child: ListTile(
@@ -129,6 +134,8 @@ class _Principal extends State<Citas>{
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Text(acudidoText, textAlign:TextAlign.center, style: TextStyle(color: colorAcudido(acudidoText), fontWeight: FontWeight.bold),),
+                              const SizedBox(height: 5,),
                               Text(
                                 corteInfo?['nombre'] ?? "Corte no disponible",
                                 overflow: TextOverflow.ellipsis,
@@ -142,6 +149,11 @@ class _Principal extends State<Citas>{
                               ),
                             ],
                           ),
+                        ),
+                        const VerticalDivider(
+                          thickness: 1,
+                          width: 20,
+                          color: Colors.black,
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -162,10 +174,10 @@ class _Principal extends State<Citas>{
                       },
                       icon: const Icon(Icons.delete)
                     ),
-                    leading: Column( 
+                    leading: const Column( 
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(acudidoText)
+                        SizedBox(width: 5,)
                       ],
                     ),
                   )

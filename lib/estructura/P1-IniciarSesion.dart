@@ -43,26 +43,46 @@ class _Principal extends State<IniciarSesion>{
 
   @override
   Widget build(BuildContext context) {
+
+    final anchoPantalla = MediaQuery.of(context).size.width;
+    final altoPantalla = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 51, 51, 51),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Center(
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: RadialGradient(
+            center: Alignment.center,
+            radius: 0.9,
+            colors:[
+              Color.fromARGB(255, 140, 140, 140),
+              Color.fromARGB(255, 113, 113, 113),
+              Color.fromARGB(255, 77, 77, 77),
+              Color.fromARGB(255, 73, 73, 73),
+
+            ]
+          )
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: SingleChildScrollView(
+            child: Center(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: altoPantalla *0.8
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 20,),                                    
-                    Text("IDENTIFÍCATE", style: TextStyle(color: Colors.white, fontSize: 50, fontWeight: FontWeight.bold)),
-                    const SizedBox(height: 60,),
-                      Form(
-                        key: _formKey,
-                        child: Container(
-                          width: 700,
-                          child: Column(
-                            children: [
+                    const SizedBox(height: 60,),                                    
+                    Text("IDENTIFÍCATE", style: TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 35,),
+                    Form(
+                      key: _formKey,
+                      child: Container(
+                        width: 700,
+                        child: Column(
+                          children: [
                             TextFormField(                              
                               controller: _emailController,
                               validator: (value){
@@ -98,7 +118,7 @@ class _Principal extends State<IniciarSesion>{
                               style: TextStyle(color: Color(0xFFfdf7e5)),
 
                             ),
-                            const SizedBox(height: 20,),
+                            const SizedBox(height: 40,),
                             ElevatedButton(onPressed: () {
                               if(_formKey.currentState!.validate()){
                                   _login();
@@ -107,41 +127,53 @@ class _Principal extends State<IniciarSesion>{
                               backgroundColor: Colors.transparent,
                               shadowColor: Colors.transparent,
                               foregroundColor: Color(0xFFffffff),
-                              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+                              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 40),
                               textStyle: const TextStyle(fontSize: 30),
                               shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.zero,
                                 side: BorderSide(
                                   color: Colors.white,
                                   width: 0.5
-                                )
-                                                              
+                                )                               
                               )
-                            
                             ), 
                             child: const Text("Inicia sesión")),
 
-                            Row(
-                              children: [
-                                const Text("Si no tienes cuenta"),
-                                ElevatedButton(onPressed: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const Registrarse()));
-                                }, child: const Text("Registrate"))
-                              ],
-                            )
+                            SizedBox(height: 90,),
+
+                            const Text("No tienes cuenta:" ,style: TextStyle(color: Colors.grey),),
+
+                            SizedBox(height: 10,),
+
+                            ElevatedButton(onPressed: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const Registrarse()));
+                            }, style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.transparent,
+                              shadowColor: Colors.transparent,
+                              foregroundColor: Color(0xFFffffff),
+                              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 35),
+                              textStyle: const TextStyle(fontSize: 15),
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.zero,
+                                side: BorderSide(
+                                  color: Colors.white,
+                                  width: 0.5
+                                )                               
+                              )
+                            ),
+                            child: const Text("Registrate"))
                           ],
-                          ),
-                          
-                        )
+                        ),
+                        
                       )
-                    
+                    )                        
                   ],
                 ),
-              )
-            ],
+              ),
+            )
           ),
         ),
-      ),
+      )
     );
   }
 }
