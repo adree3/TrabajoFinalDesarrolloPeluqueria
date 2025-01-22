@@ -42,6 +42,7 @@
           
           final listaBarberos = snapshot.data!;
           return Scaffold(
+            backgroundColor: Colors.grey,
             body: Column(
               children: [
                 Expanded(

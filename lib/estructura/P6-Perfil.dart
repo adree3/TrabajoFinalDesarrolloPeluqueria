@@ -9,7 +9,9 @@ class Perfil extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey,
       appBar: AppBar(
+        backgroundColor: Colors.grey,
         title: const Column(
           children: [
             Text("Perfil"),
@@ -56,7 +58,7 @@ class Perfil extends StatelessWidget {
       builder: (BuildContext context){
         return AlertDialog(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            title: Row(
+            title: const Row(
               children: [
                 Icon(Icons.lock, color: Colors.blue),
                 SizedBox(width: 10),

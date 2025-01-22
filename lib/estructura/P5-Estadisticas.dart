@@ -38,6 +38,7 @@ class _principal extends State<Estadisticas>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey,
       body: FutureBuilder(
         future: _datosCitas, 
         builder: (context, snapshot){
@@ -113,7 +114,8 @@ class _principal extends State<Estadisticas>{
                       ),
                       gridData: const FlGridData(show: false),
                       borderData: FlBorderData(
-                        border:  Border.all(color: Colors.grey)
+                        show: true,
+                        border:  Border.all(color: Colors.black, width: 1)
                       ),
                       alignment: BarChartAlignment.spaceAround,
                       maxY: _obtenerMaximoY(barGroups)

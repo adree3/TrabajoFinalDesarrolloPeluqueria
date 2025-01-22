@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import '../estructura/P3_1-HomeServicios.dart';
 import '../estructura/P4-Citas.dart';
 import '../estructura/P5-Estadisticas.dart';
@@ -34,7 +34,8 @@ class _Principal extends State<Principal> {
       home: Scaffold(
         body: _widgetOptions.elementAt(_selectIndex),
         bottomNavigationBar: BottomNavigationBar(
-          unselectedLabelStyle: TextStyle(color:Color.fromARGB(255, 0, 0, 0)),
+          backgroundColor: Colors.grey,
+          unselectedLabelStyle: const TextStyle(color:Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.normal),
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
             BottomNavigationBarItem(icon: Icon(Icons.date_range), label: "Citas"),
@@ -42,10 +43,12 @@ class _Principal extends State<Principal> {
             BottomNavigationBarItem(icon: Icon(Icons.person), label: "Perfil")
           ],
           currentIndex: _selectIndex,
-          selectedItemColor: Colors.amber[800],
+          selectedItemColor: const Color.fromARGB(255, 0, 27, 100),
+          unselectedItemColor: Colors.grey,
           onTap: _onItemTapped,
+          selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
     );
   }
-}
+}*/
