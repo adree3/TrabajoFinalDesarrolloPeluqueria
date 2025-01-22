@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../estructura/P3,1-HomeServicios.dart';
+import '../estructura/P3_1-HomeServicios.dart';
 import '../estructura/P4-Citas.dart';
 import '../estructura/P5-Estadisticas.dart';
 import '../estructura/P6-Perfil.dart';

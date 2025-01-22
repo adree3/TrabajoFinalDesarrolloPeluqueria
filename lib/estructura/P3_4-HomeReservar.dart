@@ -66,30 +66,30 @@ class _Principal extends State<HomeReserva> {
                   height: 40,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                        itemCount: listaHoras.length,
-                        itemBuilder: (context, index){       
-                          final hora = listaHoras[index];
-                          bool isSelected = hora == horaSeleccionada;
+                      itemCount: listaHoras.length,
+                      itemBuilder: (context, index){       
+                        final hora = listaHoras[index];
+                        bool isSelected = hora == horaSeleccionada;
 
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                            child: ElevatedButton(
-                              onPressed: (){
-                                setState(() {
-                                  horaSeleccionada = hora;
-                                });
-                              },
-                              style: ElevatedButton.styleFrom(
-                                foregroundColor: isSelected? Colors.white : const Color.fromARGB(255, 164, 80, 179),
-                                backgroundColor: isSelected ? Colors.blue : Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: ElevatedButton(
+                            onPressed: (){
+                              setState(() {
+                                horaSeleccionada = hora;
+                              });
+                            },
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: isSelected? Colors.white : const Color.fromARGB(255, 164, 80, 179),
+                              backgroundColor: isSelected ? Colors.blue : Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
                               ),
-                              child: Text(hora)
                             ),
-                          );
-                        }
+                            child: Text(hora)
+                          ),
+                        );
+                      }
                     ),
                   ),
                 ),
@@ -202,22 +202,22 @@ class _Principal extends State<HomeReserva> {
   }
   Widget calendario(){
     return Center(
-          child: Container(
-            width: 500,
-            child: TableCalendar(
-              locale: 'es_ES',
-              rowHeight: 60,
-              headerStyle: const HeaderStyle(formatButtonVisible: false, titleCentered: true,),
-              availableGestures: AvailableGestures.all,
-              focusedDay: fechaActual,
-              firstDay: fechaActual, 
-              lastDay: DateTime(fechaActual.year, fechaActual.month + 3),
-              selectedDayPredicate: (day)=> isSameDay(day, fechaSeleccionada),
-              onDaySelected: _onDaySelected,
-              daysOfWeekHeight: 30,
-              startingDayOfWeek: StartingDayOfWeek.monday,
-            ),
-          ),
-        );
+      child: Container(
+        width: 500,
+        child: TableCalendar(
+          locale: 'es_ES',
+          rowHeight: 60,
+          headerStyle: const HeaderStyle(formatButtonVisible: false, titleCentered: true,),
+          availableGestures: AvailableGestures.all,
+          focusedDay: fechaActual,
+          firstDay: fechaActual, 
+          lastDay: DateTime(fechaActual.year, fechaActual.month + 3),
+          selectedDayPredicate: (day)=> isSameDay(day, fechaSeleccionada),
+          onDaySelected: _onDaySelected,
+          daysOfWeekHeight: 30,
+          startingDayOfWeek: StartingDayOfWeek.monday,
+        ),
+      ),
+    );
   }
 }

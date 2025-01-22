@@ -67,59 +67,89 @@ class _principal extends State<Estadisticas>{
               ],
             );
           });
-          return Padding(
-            padding: const EdgeInsets.all(10.0),
-            child:
-            BarChart(
-              BarChartData(
-                barGroups: barGroups,
-                titlesData: FlTitlesData(
-                  bottomTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      getTitlesWidget:(value, meta) {
-                        const meses = [
-                          'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 
-                          'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic',
-                        ];
-                        if(value >= 1 && value <= 12){
-                          return Text(meses[(value.toInt()- 1).clamp(0, 11)]); 
-                        }else{
-                          return const Text('');
-                        }
-                      },
-                      reservedSize: 32,
-                      
+          return Column(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child:
+                  BarChart(
+                    BarChartData(
+                      barGroups: barGroups,
+                      titlesData: FlTitlesData(
+                        bottomTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            getTitlesWidget:(value, meta) {
+                              const meses = [
+                                'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 
+                                'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic',
+                              ];
+                              if(value >= 1 && value <= 12){
+                                return Text(meses[(value.toInt()- 1).clamp(0, 11)]); 
+                              }else{
+                                return const Text('');
+                              }
+                            },
+                            reservedSize: 32,
+                            
+                          ),
+                        ),
+                        leftTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            getTitlesWidget: (value, meta) {
+                              return Text(value.toInt().toString(), style: TextStyle(fontSize: 15),);
+                            },
+                            interval: 1,
+                            reservedSize: 30
+                          ),
+                        ),
+                        rightTitles: const AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: false
+                          )
+                        )
+                      ),
+                      gridData: const FlGridData(show: false),
+                      borderData: FlBorderData(
+                        border:  Border.all(color: Colors.grey)
+                      ),
+                      alignment: BarChartAlignment.spaceAround,
+                      maxY: _obtenerMaximoY(barGroups)
+                    
                     ),
                   ),
-                  leftTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      getTitlesWidget: (value, meta) {
-                        return Text(value.toInt().toString(), style: TextStyle(fontSize: 15),);
-                      },
-                      interval: 1,
-                      reservedSize: 30
-                    ),
-                  ),
-                  rightTitles: const AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: false
-                    )
-                  )
-                ),
-                gridData: const FlGridData(show: false),
-                borderData: FlBorderData(
-                  border:  Border.all(color: Colors.grey)
-                ),
-                alignment: BarChartAlignment.spaceAround,
-                maxY: _obtenerMaximoY(barGroups)
-               
+                )
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    leyendaInfo(Colors.green, " Citas acudidas"),
+                    const SizedBox(width: 40,),
+                    leyendaInfo(Colors.red, " Citas no acudidas ")
+                  ],
+                ),
+              ),
+              const SizedBox(height: 10,)
+            ],
           );
         }
       )
+    );
+  }
+  Widget leyendaInfo(Color color, String texto){
+    return Row(
+      children: [
+        Container(
+          width: 16,
+          height: 16,
+          color: color,
+        ),
+        Text(texto, style: const TextStyle(fontSize: 13),),
+      ],
     );
   }
 }

@@ -2,7 +2,7 @@ import 'package:estructuratrabajofinal/bd/db_helper.dart';
 import 'package:estructuratrabajofinal/clases/Usuario.dart';
 import 'package:flutter/material.dart';
 import 'P2-Registrarse.dart';
-import 'P3,1-HomeServicios.dart';
+import 'P3_1-HomeServicios.dart';
 import '../dao/UsuarioDAO.dart';
 
 class IniciarSesion extends StatefulWidget {

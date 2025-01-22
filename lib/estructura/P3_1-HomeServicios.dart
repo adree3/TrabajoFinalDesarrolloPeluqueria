@@ -1,8 +1,8 @@
 import 'package:estructuratrabajofinal/clases/CortesPelo.dart';
 import 'package:flutter/material.dart';
-import 'P3,2-HomePortafolio.dart';
-import 'P3,3-HomeBarberos.dart';
-import 'P3,4-HomeReservar.dart';
+import 'P3_2-HomePortafolio.dart';
+import 'P3_3-HomeBarberos.dart';
+import 'P3_4-HomeReservar.dart';
 import 'P4-Citas.dart';
 import 'P5-Estadisticas.dart';
 import 'P6-Perfil.dart';
