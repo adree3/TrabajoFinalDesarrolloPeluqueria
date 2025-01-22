@@ -94,8 +94,15 @@ class _Principal extends State<IniciarSesion>{
                               decoration: const InputDecoration(
                                 labelText: "Email",
                                 prefixIcon: Icon(Icons.email,),
-                                contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20)
-
+                                contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                                labelStyle: TextStyle(color: Colors.white),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Color.fromARGB(255, 223, 222, 222))
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.white)
+                                ),
+                                prefixIconColor: Colors.white
                               ),
                               style: TextStyle(color: Color(0xFFfdf7e5)),
 
@@ -113,7 +120,15 @@ class _Principal extends State<IniciarSesion>{
                               decoration: const InputDecoration(
                                 labelText: "Contraseña",
                                 prefixIcon: Icon(Icons.lock),
-                                contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20)
+                                contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                                labelStyle: TextStyle(color: Colors.white),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Color.fromARGB(255, 223, 222, 222))
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.white)
+                                ),
+                                prefixIconColor: Colors.white
                               ),
                               style: TextStyle(color: Color(0xFFfdf7e5)),
 

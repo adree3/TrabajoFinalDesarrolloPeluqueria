@@ -25,7 +25,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return  MaterialApp(
       theme: ThemeData(
-        inputDecorationTheme: const InputDecorationTheme(
+        /*inputDecorationTheme: const InputDecorationTheme(
           labelStyle: TextStyle(color: Colors.white),
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: Color.fromARGB(255, 223, 222, 222))
@@ -35,7 +35,7 @@ class MainApp extends StatelessWidget {
           ),
           prefixIconColor: Colors.white
 
-        )
+        )*/
       ),
       home: const IniciarSesion(),
       debugShowCheckedModeBanner: false,
