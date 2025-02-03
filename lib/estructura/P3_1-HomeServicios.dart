@@ -32,29 +32,28 @@ class _Principal extends State<HomeServicios> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.grey,
-        appBar: AppBar(
-          backgroundColor:  Color(0xfffae8d0),
-          title: Text("Peluquería"), 
-          centerTitle: true,
-        ),
-        body: _widgetOptions.elementAt(_selectIndex), 
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor:   Color.fromARGB(255, 214, 208, 199),
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-            BottomNavigationBarItem(icon: Icon(Icons.calendar_month), label: "Citas"),
-            BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: "Estadisticas"),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Perfil"),
-          ],
-          currentIndex: _selectIndex,
-          selectedItemColor: const Color.fromARGB(255, 0, 0, 0),
-          unselectedItemColor: Color(0xff827462),
-          onTap: _onItemTapped,
-          selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
-        ),
+    return Scaffold(
+      backgroundColor: Colors.grey,
+      appBar: AppBar(
+        backgroundColor:  Color(0xfffae8d0),
+        title: Text("Peluquería"), 
+        centerTitle: true,
+        automaticallyImplyLeading: false
+      ),
+      body: _widgetOptions.elementAt(_selectIndex), 
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor:   Color.fromARGB(255, 214, 208, 199),
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.calendar_month), label: "Citas"),
+          BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: "Estadisticas"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Perfil"),
+        ],
+        currentIndex: _selectIndex,
+        selectedItemColor: const Color.fromARGB(255, 0, 0, 0),
+        unselectedItemColor: Color(0xff827462),
+        onTap: _onItemTapped,
+        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -67,26 +66,39 @@ class TabBarContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor:  Color(0xfffae8d0),
-          bottom: const TabBar(
-            tabs: [
-              Tab(text: "Servicios", ),
-              Tab(text: "Portafolio"),
-              Tab(text: "Barberos"),
-            ],labelStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.bold, fontSize: 15),
-            unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal, fontSize: 15),
-            unselectedLabelColor: Colors.black,
+      child: Column(
+        children: [
+          Container(
+            color: const Color(0xfffae8d0), // Mismo color que el AppBar
+            child: const TabBar(
+              tabs: [
+                Tab(text: "Servicios"),
+                Tab(text: "Portafolio"),
+                Tab(text: "Barberos"),
+              ],
+              labelStyle: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 15,
+              ),
+              unselectedLabelStyle: TextStyle(
+                fontWeight: FontWeight.normal,
+                fontSize: 15,
+              ),
+              unselectedLabelColor: Colors.black,
+              indicatorColor: Colors.black, // Color del indicador de la pestaña activa
+            ),
           ),
-        ),
-        body: const TabBarView(
-          children: [
-            Servicios(),
-            HomePortafolio(),
-            HomeBarberos(),
-          ],
-        ),
+          Expanded(
+            child: TabBarView(
+              children: [
+                Servicios(),
+                HomePortafolio(),
+                HomeBarberos(),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -163,7 +175,10 @@ class _Segunda extends State<Servicios> {
                     ElevatedButton(
                       onPressed: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomeReserva(corte: corte)));
-                      },
+                      },style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        textStyle: TextStyle(fontSize: 22)
+                      ),
                      
                       child: const Text("Reservar"),
                     ),

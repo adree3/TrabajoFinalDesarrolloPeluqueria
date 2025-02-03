@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:sqflite/sqflite.dart';
 
 class DBHelper{
+  
   Future<Database> openDataBase() async {
   final databasePath = await getDatabasesPath();
   final path = join(databasePath, 'peluqueria.db');

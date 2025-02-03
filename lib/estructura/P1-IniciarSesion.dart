@@ -72,7 +72,7 @@ class _Principal extends State<IniciarSesion>{
                   maxWidth: altoPantalla *0.8
                 ),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  
                   children: [
                     const SizedBox(height: 60,),                                    
                     Text("IDENTIFÍCATE", style: TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold)),
@@ -82,6 +82,7 @@ class _Principal extends State<IniciarSesion>{
                       child: Container(
                         width: 700,
                         child: Column(
+                          
                           children: [
                             TextFormField(                              
                               controller: _emailController,
@@ -94,15 +95,7 @@ class _Principal extends State<IniciarSesion>{
                               decoration: const InputDecoration(
                                 labelText: "Email",
                                 prefixIcon: Icon(Icons.email,),
-                                contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                                labelStyle: TextStyle(color: Colors.white),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Color.fromARGB(255, 223, 222, 222))
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white)
-                                ),
-                                prefixIconColor: Colors.white
+                                
                               ),
                               style: TextStyle(color: Color(0xFFfdf7e5)),
 
@@ -120,15 +113,7 @@ class _Principal extends State<IniciarSesion>{
                               decoration: const InputDecoration(
                                 labelText: "Contraseña",
                                 prefixIcon: Icon(Icons.lock),
-                                contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                                labelStyle: TextStyle(color: Colors.white),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Color.fromARGB(255, 223, 222, 222))
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white)
-                                ),
-                                prefixIconColor: Colors.white
+                                
                               ),
                               style: TextStyle(color: Color(0xFFfdf7e5)),
 
@@ -138,20 +123,7 @@ class _Principal extends State<IniciarSesion>{
                               if(_formKey.currentState!.validate()){
                                   _login();
                                 }
-                            },style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.transparent,
-                              shadowColor: Colors.transparent,
-                              foregroundColor: Color(0xFFffffff),
-                              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 40),
-                              textStyle: const TextStyle(fontSize: 30),
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.zero,
-                                side: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.5
-                                )                               
-                              )
-                            ), 
+                            },
                             child: const Text("Inicia sesión")),
 
                             SizedBox(height: 90,),
@@ -162,20 +134,7 @@ class _Principal extends State<IniciarSesion>{
 
                             ElevatedButton(onPressed: () {
                               Navigator.push(context, MaterialPageRoute(builder: (context) => const Registrarse()));
-                            }, style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.transparent,
-                              shadowColor: Colors.transparent,
-                              foregroundColor: Color(0xFFffffff),
-                              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 35),
-                              textStyle: const TextStyle(fontSize: 15),
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.zero,
-                                side: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.5
-                                )                               
-                              )
-                            ),
+                            }, 
                             child: const Text("Registrate"))
                           ],
                         ),
