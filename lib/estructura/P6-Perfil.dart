@@ -9,65 +9,129 @@ class Perfil extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
+      backgroundColor: Color(0xff5a5a5a),
       appBar: AppBar(
-        backgroundColor: Colors.grey,
-        title: const Column(
-          children: [
-            Text("Perfil"),
-          ],
+        backgroundColor: Color(0xff5a5a5a),
+        automaticallyImplyLeading: false,
+        title: const Text(
+          "Perfil",
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 22),
+          textAlign: TextAlign.center,
         ),
       ),
       body: Center(
         child: Column(
           children: [
-            const Text("imagen"),
-            SizedBox(height: 20,),
-            Form(
-              child: Column(
-                children: [
-                  ElevatedButton(onPressed: (){_dialogo(context);}, child: Text("Cambiar la contraseña"))
-                ],
-              ),
+            const SizedBox(height: 20),
+
+            // Avatar + Información del usuario
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircleAvatar(
+                  radius: 80, // Ajusta el tamaño si es necesario
+                  backgroundColor: Colors.grey[700],
+                  backgroundImage: AssetImage("assets/images/perfil.jpg"),
+                ),
+                const SizedBox(width: 15), // Espacio entre el avatar y la info
+                
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      Usuario.usuarioActual!.email,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      Usuario.usuarioActual!.telefono.toString(), // Teléfono
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-            SizedBox(height: 20,),
-            ElevatedButton(
+
+            const SizedBox(height: 30),
+
+            // Botón cambiar contraseña
+            ElevatedButton.icon(
+              onPressed: () {
+                _dialogo(context);
+              },
+              icon: Icon(Icons.lock_outline),
+              label: Text("Cambiar Contraseña"),
+              style: _buttonStyle(),
+            ),
+            const SizedBox(height: 15),
+
+            // Botón cerrar sesión
+            ElevatedButton.icon(
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => const IniciarSesion()));
               },
-              child: const Text("Cerrar Sesion"),
+              icon: Icon(Icons.logout),
+              label: Text("Cerrar Sesión"),
+              style: _buttonStyle(),
             ),
-            SizedBox(height: 20,),
-            ElevatedButton(
-              onPressed: () {},
-              child: const Text("Eliminar Cuenta"),
+            const SizedBox(height: 15),
+
+            // Botón eliminar cuenta
+            ElevatedButton.icon(
+              onPressed: () {
+                // Lógica para eliminar cuenta
+              },
+              icon: Icon(Icons.delete, color: Colors.red),
+              label: Text("Eliminar Cuenta"),
+              style: _buttonStyle().copyWith(
+                backgroundColor: MaterialStateProperty.all(Colors.red),
+              ),
             ),
           ],
         ),
-      )
+      ),
     );
   }
-  void _dialogo(BuildContext context){
+
+  // Estilo de los botones
+  ButtonStyle _buttonStyle() {
+    return ElevatedButton.styleFrom(
+      backgroundColor: Colors.blueGrey[800],
+      foregroundColor: Colors.white,
+      padding: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+    );
+  }
+
+  // Diálogo para cambiar la contraseña
+  void _dialogo(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
     final TextEditingController _controllerContrasenaActual = TextEditingController();
     final TextEditingController _controllerContrasenaNueva = TextEditingController();
     final TextEditingController _controllerContrasenaNueva2 = TextEditingController();
 
     showDialog(
-      context: context, 
-      builder: (BuildContext context){
+      context: context,
+      builder: (BuildContext context) {
         return AlertDialog(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            title: const Row(
-              children: [
-                Icon(Icons.lock, color: Colors.blue),
-                SizedBox(width: 10),
-                Text(
-                  "Cambia la contraseña",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          title: const Row(
+            children: [
+              Icon(Icons.lock, color: Colors.blue),
+              SizedBox(width: 10),
+              Text(
+                "Cambia la contraseña",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
           content: SingleChildScrollView(
             child: Form(
               key: _formKey,
@@ -77,88 +141,82 @@ class Perfil extends StatelessWidget {
                   TextFormField(
                     obscureText: true,
                     controller: _controllerContrasenaActual,
-                    validator: (value){
-                      if(value==null||value.isEmpty){
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
                         return "Introduce tu contraseña actual";
                       }
-
                       return null;
-
                     },
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: "Introduce tu contraseña actual"
+                      labelText: "Introduce tu contraseña actual",
                     ),
                   ),
-                  SizedBox(height: 15,),
-                  Divider(),
-                  SizedBox(height: 15,),
+                  const SizedBox(height: 15),
+                  const Divider(),
+                  const SizedBox(height: 15),
                   TextFormField(
                     obscureText: true,
                     controller: _controllerContrasenaNueva,
-                    validator: (value){
-                      if(value==null||value.isEmpty){
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
                         return "Introduce una contraseña nueva";
                       }
-                      if(_controllerContrasenaActual.text== value){
+                      if (_controllerContrasenaActual.text == value) {
                         return "No puedes introducir la misma contraseña que la actual";
                       }
                       return null;
-                      
                     },
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: "Introduce una contraseña nueva"
+                      labelText: "Introduce una contraseña nueva",
                     ),
                   ),
-                  SizedBox(height: 10,),
+                  const SizedBox(height: 10),
                   TextFormField(
                     obscureText: true,
                     controller: _controllerContrasenaNueva2,
-                    validator: (value){
-                      if(value==null||value.isEmpty){
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
                         return "Repite la contraseña nueva";
                       }
-                      if(_controllerContrasenaNueva.text!=value){
+                      if (_controllerContrasenaNueva.text != value) {
                         return "Las contraseñas nuevas tienen que coincidir";
                       }
                       return null;
                     },
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: "Repite la contraseña nueva"
+                      labelText: "Repite la contraseña nueva",
                     ),
                   ),
-                  SizedBox(height: 10,),
+                  const SizedBox(height: 10),
                   Center(
                     child: ElevatedButton(
                       onPressed: () async {
-                        Usuario? user = Usuario.usuarioActual; 
-                        print(user);
-                        if(_formKey.currentState!.validate()){
-                          if(await UsuarioDao().comprobarUsuario(user!.email, _controllerContrasenaActual.text)){
-                            if(await UsuarioDao().actualizarUsuarioContrasena(user.id!, _controllerContrasenaNueva.text) != 0){
+                        Usuario? user = Usuario.usuarioActual;
+                        if (_formKey.currentState!.validate()) {
+                          if (await UsuarioDao().comprobarUsuario(user!.email, _controllerContrasenaActual.text)) {
+                            if (await UsuarioDao().actualizarUsuarioContrasena(user.id!, _controllerContrasenaNueva.text) != 0) {
                               Usuario.usuarioActual = await UsuarioDao().obtenerUsuarioPorId(user.id!);
-                              print("Contraseña actualizada");                              
-                              print(Usuario.usuarioActual);
                               Navigator.of(context).pop();
                             }
                           }
                         }
-                      }, 
-                      child: Text("Actualizar contraseña"),
+                      },
+                      child: const Text("Actualizar contraseña"),
                       style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),            
-                      )
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                      ),
                     ),
                   )
                 ],
-              )
+              ),
             ),
-          )
+          ),
         );
-      }
+      },
     );
   }
 }

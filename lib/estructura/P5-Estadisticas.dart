@@ -38,7 +38,7 @@ class _principal extends State<Estadisticas>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
+      backgroundColor: Color(0xff5a5a5a),
       body: FutureBuilder(
         future: _datosCitas, 
         builder: (context, snapshot){
@@ -78,6 +78,15 @@ class _principal extends State<Estadisticas>{
                     BarChartData(
                       barGroups: barGroups,
                       titlesData: FlTitlesData(
+                        topTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            getTitlesWidget: (value, meta) {
+                              return Text(value.toInt().toString(), style: TextStyle(color: const Color.fromARGB(255, 255, 255, 255)),);
+                            },
+                              reservedSize: 30
+                          ),
+                        ),
                         bottomTitles: AxisTitles(
                           sideTitles: SideTitles(
                             showTitles: true,
@@ -87,7 +96,7 @@ class _principal extends State<Estadisticas>{
                                 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic',
                               ];
                               if(value >= 1 && value <= 12){
-                                return Text(meses[(value.toInt()- 1).clamp(0, 11)]); 
+                                return Text(meses[(value.toInt()- 1).clamp(0, 11)],style: TextStyle(color: Colors.white),); 
                               }else{
                                 return const Text('');
                               }
@@ -100,7 +109,7 @@ class _principal extends State<Estadisticas>{
                           sideTitles: SideTitles(
                             showTitles: true,
                             getTitlesWidget: (value, meta) {
-                              return Text(value.toInt().toString(), style: TextStyle(fontSize: 15),);
+                              return Text(value.toInt().toString(), style: TextStyle(fontSize: 15,color: Colors.white),);
                             },
                             interval: 1,
                             reservedSize: 30
@@ -109,6 +118,7 @@ class _principal extends State<Estadisticas>{
                         rightTitles: const AxisTitles(
                           sideTitles: SideTitles(
                             showTitles: false
+                            
                           )
                         )
                       ),
@@ -150,7 +160,7 @@ class _principal extends State<Estadisticas>{
           height: 16,
           color: color,
         ),
-        Text(texto, style: const TextStyle(fontSize: 13),),
+        Text(texto, style: const TextStyle(fontSize: 13,color: Colors.white),),
       ],
     );
   }

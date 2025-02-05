@@ -102,10 +102,12 @@ class _Principal extends State<Citas>{
         final listaCitas = snapshot.data!;
         
         return Scaffold(
-          backgroundColor: Colors.grey,
+          backgroundColor: Color(0xff5a5a5a),
           appBar: AppBar(
-            backgroundColor: Colors.grey,
-            title: const Text("Listado de citas"),
+            backgroundColor: Color(0xff5a5a5a),
+            title: const Text("Listado de citas",style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+            automaticallyImplyLeading: false
+
           ),
           body: ListView.builder(
             itemCount: listaCitas.length,

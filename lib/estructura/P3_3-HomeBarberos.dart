@@ -41,7 +41,7 @@ class _Principal extends State<HomeBarberos>{
         final listaBarberos= snapshot.data!;
 
         return Scaffold(
-          backgroundColor: Colors.grey,
+          backgroundColor:Color(0xff5a5a5a),
           body: Column(
             children: [
               Expanded(child: 
