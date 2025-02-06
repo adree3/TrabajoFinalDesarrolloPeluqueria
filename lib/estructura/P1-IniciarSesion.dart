@@ -124,7 +124,7 @@ class _Principal extends State<IniciarSesion>{
                                   _login();
                                 }
                             },
-                            child: const Text("Inicia sesión")),
+                            child: const Text("Iniciar sesión")),
 
                             SizedBox(height: 90,),
 
@@ -135,7 +135,7 @@ class _Principal extends State<IniciarSesion>{
                             ElevatedButton(onPressed: () {
                               Navigator.push(context, MaterialPageRoute(builder: (context) => const Registrarse()));
                             }, 
-                            child: const Text("Registrate"))
+                            child: const Text("Regístrate"))
                           ],
                         ),
                         

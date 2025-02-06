@@ -186,7 +186,7 @@ class _Principal extends State<Registrarse>{
                               }
                             }, 
                             
-                            child: const Text("Registrate")),
+                            child: const Text("Regístrate")),
                             SizedBox(height: 40,),
                 
                             const Text("¿Tienes cuenta?", style: TextStyle(color: Colors.grey),),
