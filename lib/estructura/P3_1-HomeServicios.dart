@@ -1,4 +1,4 @@
-import 'package:estructuratrabajofinal/clases/CortesPelo.dart';
+import 'package:estructuratrabajofinal/clases/cortesPelo.dart';
 import 'package:flutter/material.dart';
 import 'P3_2-HomePortafolio.dart';
 import 'P3_3-HomeBarberos.dart';
@@ -6,7 +6,9 @@ import 'P3_4-HomeReservar.dart';
 import 'P4-Citas.dart';
 import 'P5-Estadisticas.dart';
 import 'P6-Perfil.dart';
-import '../dao/CortePeloDAO.dart';
+import '../dao/cortePeloDAO.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class HomeServicios extends StatefulWidget {
   const HomeServicios({super.key});
 
@@ -36,22 +38,21 @@ class _Principal extends State<HomeServicios> {
       backgroundColor: Colors.grey,
       appBar: AppBar(
         backgroundColor:  Color(0xfffae8d0),
-        title: Text("Peluquería"), 
+        title: Text(AppLocalizations.of(context)!.p31Peluqueria), 
         centerTitle: true,
         automaticallyImplyLeading: false
       ),
       body: _widgetOptions.elementAt(_selectIndex), 
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor:   Color.fromARGB(255, 214, 208, 199),
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.calendar_month), label: "Citas"),
-          BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: "Estadisticas"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Perfil"),
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: AppLocalizations.of(context)!.p31Inicio),
+          BottomNavigationBarItem(icon: Icon(Icons.calendar_month), label: AppLocalizations.of(context)!.p31Citas),
+          BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: AppLocalizations.of(context)!.p31Estadisticas),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: AppLocalizations.of(context)!.p31Perfil),
         ],
         currentIndex: _selectIndex,
-        selectedItemColor: const Color.fromARGB(255, 0, 0, 0),
-        unselectedItemColor: Color(0xff827462),
+        //selectedItemColor: const Color.fromARGB(255, 0, 0, 0),
+        //unselectedItemColor: Color(0xff827462),
         onTap: _onItemTapped,
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
       ),
@@ -70,11 +71,11 @@ class TabBarContent extends StatelessWidget {
         children: [
           Container(
             color: const Color(0xfffae8d0), // Mismo color que el AppBar
-            child: const TabBar(
+            child: TabBar(
               tabs: [
-                Tab(text: "Servicios"),
-                Tab(text: "Portafolio"),
-                Tab(text: "Barberos"),
+                Tab(text: AppLocalizations.of(context)!.p31Servicios),
+                Tab(text: AppLocalizations.of(context)!.p31Portafolio),
+                Tab(text: AppLocalizations.of(context)!.p31Barberos),
               ],
               labelStyle: TextStyle(
                 color: Colors.black,
@@ -129,13 +130,13 @@ class _Segunda extends State<Servicios> {
           );
         }
         if(!snapshot.hasData||snapshot.data!.isEmpty){
-          return const Center(
-            child: Text("No hay cortes de pelo disponibles"),
+          return Center(
+            child: Text(AppLocalizations.of(context)!.p31NoHayCortes),
           );
         }
         if(snapshot.hasError){
           return Center(
-            child:  Text("Error: ${snapshot.error}"),
+            child:  Text("${AppLocalizations.of(context)!.p31Error} ${snapshot.error}"),
           );
         }
         final cortesDePelo = snapshot.data!;
@@ -168,7 +169,7 @@ class _Segunda extends State<Servicios> {
                     Column(
                       children: [
                         Text("${corte.precio}€", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                        Text("${corte.duracion} minutos", style: TextStyle(color: Colors.white)),
+                        Text("${corte.duracion} ${AppLocalizations.of(context)!.p31Minutos}", style: TextStyle(color: Colors.white)),
                       ],
                     ),
                     SizedBox(width: 10,),
@@ -180,7 +181,7 @@ class _Segunda extends State<Servicios> {
                         textStyle: TextStyle(fontSize: 22)
                       ),
                      
-                      child: const Text("Reservar"),
+                      child: Text(AppLocalizations.of(context)!.p31Reservar),
                     ),
                   ],
                 ),

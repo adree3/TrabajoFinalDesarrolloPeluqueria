@@ -1,6 +1,7 @@
-import 'package:estructuratrabajofinal/dao/CitasDAO.dart';
+import 'package:estructuratrabajofinal/dao/citasDAO.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Estadisticas extends StatefulWidget {
   const Estadisticas({super.key});
@@ -49,7 +50,7 @@ class _principal extends State<Estadisticas>{
           }
           if(snapshot.hasError){
             return Center(
-              child: Text("Error ${snapshot.error}"),
+              child: Text("${AppLocalizations.of(context)!.p5Error} ${snapshot.error}"),
             );
           }
 
@@ -139,9 +140,9 @@ class _principal extends State<Estadisticas>{
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    leyendaInfo(Colors.green, " Citas acudidas"),
+                    leyendaInfo(Colors.green, AppLocalizations.of(context)!.p5CitaAcudida),
                     const SizedBox(width: 40,),
-                    leyendaInfo(Colors.red, " Citas no acudidas ")
+                    leyendaInfo(Colors.red, AppLocalizations.of(context)!.p5CitaNoAcudida)
                   ],
                 ),
               ),

@@ -1,12 +1,14 @@
-import 'package:estructuratrabajofinal/clases/Barbero.dart';
-import 'package:estructuratrabajofinal/clases/Cita.dart';
-import 'package:estructuratrabajofinal/clases/CortesPelo.dart';
+import 'package:estructuratrabajofinal/clases/barbero.dart';
+import 'package:estructuratrabajofinal/clases/cita.dart';
+import 'package:estructuratrabajofinal/clases/cortesPelo.dart';
 import 'package:estructuratrabajofinal/clases/Usuario.dart';
-import 'package:estructuratrabajofinal/dao/BarberoDAO.dart';
-import 'package:estructuratrabajofinal/dao/CitasDAO.dart';
+import 'package:estructuratrabajofinal/dao/barberoDAO.dart';
+import 'package:estructuratrabajofinal/dao/citasDAO.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class HomeReserva extends StatefulWidget {
   final CortePelo corte;
 
@@ -30,14 +32,11 @@ class _Principal extends State<HomeReserva> {
   void _onDaySelected(DateTime day, DateTime focusedDay){
     setState(() {
       fechaSeleccionada = day;
-      //print(horaSeleccionada);
-      //print(fechaSeleccionada.day);
     });
   }
   String _devolverFecha(String horaSeleccionada, DateTime fechaSeleccionada){
     final fechaFormateada = DateFormat('yyyy-MM-dd').format(fechaSeleccionada);
     String fechaCompleta = "$fechaFormateada $horaSeleccionada:00";
-    //print(fechaCompleta);
     return fechaCompleta;
   }
   
@@ -55,7 +54,7 @@ class _Principal extends State<HomeReserva> {
   child: Center(
     child: Container(
       constraints: BoxConstraints(
-        maxWidth: 600, // Limita el ancho máximo a 600 píxeles (ajusta según tus necesidades)
+        maxWidth: 600, 
       ),
       padding: const EdgeInsets.all(16.0),
       child: Form(
@@ -108,8 +107,8 @@ class _Principal extends State<HomeReserva> {
             const SizedBox(height: 10),
             Row(
               children: [
-                const Text(
-                  "Barbero:",
+                Text(
+                  AppLocalizations.of(context)!.p34Barbero,
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
                 const SizedBox(width: 10),
@@ -125,12 +124,12 @@ class _Principal extends State<HomeReserva> {
                       }
                       if (snapshot.hasError) {
                         return Center(
-                          child: Text("error ${snapshot.error}"),
+                          child: Text("${AppLocalizations.of(context)!.p34Error} ${snapshot.error}"),
                         );
                       }
                       if (snapshot.data == null || snapshot.data!.isEmpty) {
-                        return const Center(
-                          child: Text("No hay barberos"),
+                        return Center(
+                          child: Text(AppLocalizations.of(context)!.p34NoHayBarberos),
                         );
                       }
                       final listaBarberos = snapshot.data!;
@@ -142,9 +141,9 @@ class _Principal extends State<HomeReserva> {
                             barberoSeleccionado = newValue;
                           });
                         },
-                        hint: const Center(
+                        hint: Center(
                           child: Text(
-                            "Selecciona un barbero",
+                            AppLocalizations.of(context)!.p34SeleccionaUnBarbero,
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
@@ -174,9 +173,9 @@ class _Principal extends State<HomeReserva> {
                       context: context,
                       barrierDismissible: true,
                       builder: (BuildContext context) {
-                        return const AlertDialog(
+                        return AlertDialog(
                           content: Text(
-                            "Rellena todos los campos",
+                            AppLocalizations.of(context)!.p34RellenaCampos,
                             textAlign: TextAlign.center,
                           ),
                         );
@@ -206,9 +205,9 @@ class _Principal extends State<HomeReserva> {
                       context: context,
                       barrierDismissible: true,
                       builder: (BuildContext context) {
-                        return const AlertDialog(
+                        return AlertDialog(
                           content: Text(
-                            "No se pudo crear la cita",
+                            AppLocalizations.of(context)!.p34NoCrearLista,
                             textAlign: TextAlign.center,
                           ),
                         );
@@ -216,7 +215,7 @@ class _Principal extends State<HomeReserva> {
                     );
                   }
                 },
-                child: const Text("Reservar"),
+                child: Text(AppLocalizations.of(context)!.p34Reservar),
               ),
             ),
           ],

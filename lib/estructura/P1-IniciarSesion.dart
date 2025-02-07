@@ -3,7 +3,8 @@ import 'package:estructuratrabajofinal/clases/Usuario.dart';
 import 'package:flutter/material.dart';
 import 'P2-Registrarse.dart';
 import 'P3_1-HomeServicios.dart';
-import '../dao/UsuarioDAO.dart';
+import '../dao/usuarioDAO.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class IniciarSesion extends StatefulWidget {
   const IniciarSesion({super.key});
@@ -36,7 +37,7 @@ class _Principal extends State<IniciarSesion>{
       Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeServicios()));
     }else{
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Credenciales incorrectas"))
+        SnackBar(content: Text(AppLocalizations.of(context)!.p1CredencialesIncorrectas))
       );
     }
   }
@@ -75,7 +76,7 @@ class _Principal extends State<IniciarSesion>{
                   
                   children: [
                     const SizedBox(height: 60,),                                    
-                    Text("IDENTIFÍCATE", style: TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold)),
+                    Text(AppLocalizations.of(context)!.p1Identificate, style: TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 35,),
                     Form(
                       key: _formKey,
@@ -88,12 +89,12 @@ class _Principal extends State<IniciarSesion>{
                               controller: _emailController,
                               validator: (value){
                                 if(value == null||value.isEmpty){
-                                  return "Introduce un email";
+                                  return AppLocalizations.of(context)!.p1IntroduceMail;
                                 }
                                 return null;
                               },
-                              decoration: const InputDecoration(
-                                labelText: "Email",
+                              decoration:  InputDecoration(
+                                labelText: AppLocalizations.of(context)!.p1Email,
                                 prefixIcon: Icon(Icons.email,),
                                 
                               ),
@@ -106,12 +107,12 @@ class _Principal extends State<IniciarSesion>{
                               obscureText: true,
                               validator: (value){
                                 if(value == null||value.isEmpty){
-                                  return "Introduce tu contraseña";
+                                  return AppLocalizations.of(context)!.p1IntroduceContrasena;
                                 }
                                 return null;
                               },
-                              decoration: const InputDecoration(
-                                labelText: "Contraseña",
+                              decoration: InputDecoration(
+                                labelText: AppLocalizations.of(context)!.p1Contrasena,
                                 prefixIcon: Icon(Icons.lock),
                                 
                               ),
@@ -124,18 +125,18 @@ class _Principal extends State<IniciarSesion>{
                                   _login();
                                 }
                             },
-                            child: const Text("Iniciar sesión")),
+                            child:  Text(AppLocalizations.of(context)!.p1IniciarSesion)),
 
                             SizedBox(height: 90,),
 
-                            const Text("No tienes cuenta:" ,style: TextStyle(color: Colors.grey),),
+                             Text(AppLocalizations.of(context)!.p1NotienesCuenta ,style: TextStyle(color: Colors.grey),),
 
                             SizedBox(height: 10,),
 
                             ElevatedButton(onPressed: () {
                               Navigator.push(context, MaterialPageRoute(builder: (context) => const Registrarse()));
                             }, 
-                            child: const Text("Regístrate"))
+                            child:  Text(AppLocalizations.of(context)!.p1Registrate))
                           ],
                         ),
                         

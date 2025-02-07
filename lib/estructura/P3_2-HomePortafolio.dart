@@ -1,6 +1,7 @@
-  import 'package:estructuratrabajofinal/clases/Barbero.dart';
+  import 'package:estructuratrabajofinal/clases/barbero.dart';
   import 'package:flutter/material.dart';
-  import 'package:estructuratrabajofinal/dao/BarberoDAO.dart';
+  import 'package:estructuratrabajofinal/dao/barberoDAO.dart';
+  import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
   class HomePortafolio extends StatefulWidget {
     const HomePortafolio({super.key});
@@ -30,13 +31,13 @@
             );
           }
           if (snapshot.data==null|| snapshot.data!.isEmpty){
-            return const Center(
-              child: Text("No hay barberos disponibles"),
+            return Center(
+              child: Text(AppLocalizations.of(context)!.p32NoHayBarberos),
             );
           }
           if(snapshot.hasError){
             return Center(
-              child:  Text("Error: ${snapshot.error}"),
+              child:  Text("${AppLocalizations.of(context)!.p32Error} ${snapshot.error}"),
             );
           }
           

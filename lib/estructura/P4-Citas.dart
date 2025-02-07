@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:estructuratrabajofinal/clases/Cita.dart';
-import 'package:estructuratrabajofinal/dao/CitasDAO.dart';
+import 'package:estructuratrabajofinal/clases/cita.dart';
+import 'package:estructuratrabajofinal/dao/citasDAO.dart';
 import 'package:estructuratrabajofinal/clases/Usuario.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Citas extends StatefulWidget {
   const Citas({super.key});
@@ -28,7 +29,7 @@ class _Principal extends State<Citas>{
       }
       return citasConCortes;
     } catch (e, stackTrace) {
-      debugPrint('Error loading citas: $e\n$stackTrace');
+      debugPrint('Error cargando citas: $e \n $stackTrace');
       return [];
     }
   }
@@ -90,13 +91,13 @@ class _Principal extends State<Citas>{
         if(snapshot.hasError){
           print(snapshot.error);
           return Center(
-            child: Text("error: ${snapshot.error}"),
+            child: Text("${AppLocalizations.of(context)!.p4Error} ${snapshot.error}"),
           );
         }
 
         if(snapshot.data==null|| snapshot.data!.isEmpty){
-          return const Center(
-            child: Text("No hay citas disponibles"),
+          return Center(
+            child: Text(AppLocalizations.of(context)!.p4NoCitas),
           );
         }               
         final listaCitas = snapshot.data!;
@@ -105,7 +106,7 @@ class _Principal extends State<Citas>{
           backgroundColor: Color(0xff5a5a5a),
           appBar: AppBar(
             backgroundColor: Color(0xff5a5a5a),
-            title: const Text("Listado de citas",style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+            title: Text(AppLocalizations.of(context)!.p4ListadoCitas,style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
             automaticallyImplyLeading: false
 
           ),
@@ -122,9 +123,9 @@ class _Principal extends State<Citas>{
               String dia = fecha.day.toString().padLeft(2,'0');
               String mes = fecha.month.toString();
               if(cita.acudido==1){
-                acudidoText = "Acudido";
+                acudidoText = AppLocalizations.of(context)!.p4Acudido;
               }else if(cita.acudido==0){
-                acudidoText = "No acudido";
+                acudidoText = AppLocalizations.of(context)!.p4NoAcudido;
               }
               return Padding(
                 padding: const EdgeInsets.all(8),
@@ -169,7 +170,7 @@ class _Principal extends State<Citas>{
                         )
                       ],
                     ),
-                    trailing: IconButton(
+                    /*trailing: IconButton(
                       onPressed: () async{
                         await CitasDao().eliminarCita(cita);                                                    
                         setState(() {
@@ -177,7 +178,7 @@ class _Principal extends State<Citas>{
                         });
                       },
                       icon: const Icon(Icons.delete)
-                    ),
+                    ),*/
                     leading: const Column( 
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

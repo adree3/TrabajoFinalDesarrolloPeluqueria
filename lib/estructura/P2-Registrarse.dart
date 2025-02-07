@@ -1,7 +1,8 @@
 import 'package:estructuratrabajofinal/clases/Usuario.dart';
 import 'package:estructuratrabajofinal/dao/usuarioDAO.dart';
-import 'package:estructuratrabajofinal/estructura/P1-IniciarSesion.dart';
+import 'package:estructuratrabajofinal/estructura/p1-IniciarSesion.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Registrarse extends StatefulWidget {
   const Registrarse({super.key});
@@ -32,11 +33,11 @@ class _Principal extends State<Registrarse>{
     if(user==null){
       crearUser();
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Usuario creado"))
+         SnackBar(content: Text(AppLocalizations.of(context)!.p2UsuarioCreado))
       );
     }else{
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Ya hay una cuenta con ese Email"))
+         SnackBar(content: Text(AppLocalizations.of(context)!.p2YaHayUna))
       );
     }
   }
@@ -83,7 +84,7 @@ class _Principal extends State<Registrarse>{
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("REGISTRATE", style: TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold),),
+                     Text(AppLocalizations.of(context)!.p2Registrate, style: TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold),),
                     const SizedBox(height: 10,),
                     Form(
                       key: _formKey,
@@ -95,12 +96,12 @@ class _Principal extends State<Registrarse>{
                               controller: _controllerNombre,
                               validator: (value){
                                 if(value==null||value.isEmpty){
-                                  return "Introduce un nombre";
+                                  return AppLocalizations.of(context)!.p2IntroduceNombre;
                                 }
                                 return null;
                                 },
-                              decoration: const InputDecoration(
-                                labelText: "Nombre",
+                              decoration:  InputDecoration(
+                                labelText: AppLocalizations.of(context)!.p2Nombre,
                                 prefixIcon: Icon(Icons.person_off,),
                               ),
                               style: TextStyle(color: Color(0xFFfdf7e5)),
@@ -111,12 +112,12 @@ class _Principal extends State<Registrarse>{
                               controller: _controllerEmail,
                               validator: (value){
                                 if(value==null||value.isEmpty){
-                                  return "Introduce un email";
+                                  return AppLocalizations.of(context)!.p2IntroduceEmail;
                                 }
                                 return null;
                                 },
-                              decoration: const InputDecoration(
-                                labelText: "Email",
+                              decoration: InputDecoration(
+                                labelText: AppLocalizations.of(context)!.p2Email,
                                 prefixIcon: Icon(Icons.mail,),
                                 
                               ),
@@ -128,12 +129,12 @@ class _Principal extends State<Registrarse>{
                               controller: _controllerTelefono,
                               validator: (value){
                                 if(value==null||value.isEmpty){
-                                  return "Introduce un telefono";
+                                  return AppLocalizations.of(context)!.p2IntroduceTelefono;
                                 }
                                 return null;
                                 },
-                              decoration: const InputDecoration(
-                                labelText: "Telefono",
+                              decoration:  InputDecoration(
+                                labelText: AppLocalizations.of(context)!.p2Telefono,
                                 prefixIcon: Icon(Icons.phone,),
                                 
                               ),
@@ -146,12 +147,12 @@ class _Principal extends State<Registrarse>{
                               obscureText: true,
                               validator: (value){
                                 if(value==null||value.isEmpty){
-                                  return "Introduce una contraseña";
+                                  return AppLocalizations.of(context)!.p2IntroduceContrasena;
                                 }
                                 return null;
                                 },
-                              decoration: const InputDecoration(
-                                labelText: "Contraseña",
+                              decoration:  InputDecoration(
+                                labelText: AppLocalizations.of(context)!.p2Contrasena,
                                 prefixIcon: Icon(Icons.lock,),
                                 
                               ),
@@ -164,14 +165,14 @@ class _Principal extends State<Registrarse>{
                               obscureText: true,
                               validator: (value){
                                 if(value==null||value.isEmpty){
-                                  return "Repite la contraseña";
+                                  return AppLocalizations.of(context)!.p2RepiteContrasena;
                                 }else if(_controllerContrasena.text!=_controllerContrasena2.text){
-                                  return "Las contraseñas no coinciden";
+                                  return AppLocalizations.of(context)!.p2ContrasenaNoCoinciden;
                                 }
                                 return null;
                                 },
-                              decoration: const InputDecoration(
-                                labelText: "Confirmar contraseña",
+                              decoration:  InputDecoration(
+                                labelText: AppLocalizations.of(context)!.p2ConfirmarContrasena,
                                 prefixIcon: Icon(Icons.lock,),
                                 
                               ),
@@ -186,16 +187,16 @@ class _Principal extends State<Registrarse>{
                               }
                             }, 
                             
-                            child: const Text("Regístrate")),
+                            child: Text(AppLocalizations.of(context)!.p2Registrate2)),
                             SizedBox(height: 40,),
                 
-                            const Text("¿Tienes cuenta?", style: TextStyle(color: Colors.grey),),
+                             Text(AppLocalizations.of(context)!.p2TienesCuenta, style: TextStyle(color: Colors.grey),),
                             SizedBox(height: 10,),
                 
                             ElevatedButton(onPressed: () {
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => const IniciarSesion()));
                               },
-                              child: const Text("Inicia sesión"))
+                              child:  Text(AppLocalizations.of(context)!.p2IniciaSesion))
                           
                           ],
                         ), 

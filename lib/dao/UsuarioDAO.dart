@@ -4,6 +4,13 @@ import 'package:sqflite/sqflite.dart';
 
 class UsuarioDao {
   
+  Future<void> eliminarUsuario(Usuario usu) async{
+    final database = await DBHelper().openDataBase();
+    await database.delete("Usuario", where: "id=?", whereArgs: [usu.id]);
+    print("usuario eliminado $usu ");
+    
+  }
+
   Future<void> addUser(Usuario usuario) async{
     final database= await DBHelper().openDataBase();
     await database.insert(

@@ -1,5 +1,5 @@
 import 'package:estructuratrabajofinal/bd/db_helper.dart';
-import 'package:estructuratrabajofinal/clases/CortesPelo.dart';
+import 'package:estructuratrabajofinal/clases/cortesPelo.dart';
 import 'package:sqflite/sqflite.dart';
 
 class CortePeloDao {

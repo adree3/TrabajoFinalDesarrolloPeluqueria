@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:estructuratrabajofinal/clases/Barbero.dart';
-import 'package:estructuratrabajofinal/dao/BarberoDAO.dart';
+import 'package:estructuratrabajofinal/clases/barbero.dart';
+import 'package:estructuratrabajofinal/dao/barberoDAO.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeBarberos extends StatefulWidget {
   const HomeBarberos({super.key});
@@ -29,13 +30,13 @@ class _Principal extends State<HomeBarberos>{
           );
         }
         if(snapshot.data==null|| snapshot.data!.isEmpty){
-          return const Center(
-            child: Text("No hay barberos disponibles"),
+          return Center(
+            child: Text(AppLocalizations.of(context)!.p33NoHayBarberos),
           );
         }
         if(snapshot.hasError){
           return Center(
-            child: Text("error: ${snapshot.error}" ),
+            child: Text("${AppLocalizations.of(context)!.p33Error} ${snapshot.error}" ),
           );
         }
         final listaBarberos= snapshot.data!;
@@ -65,7 +66,7 @@ class _Principal extends State<HomeBarberos>{
                                 Column(
                                   children: [
                                     Text(barbero.nombre),
-                                    Text("${barbero.edad.toString()} años")
+                                    Text("${barbero.edad.toString()} ${AppLocalizations.of(context)!.p33Anos}")
                                   ],
                                 ),  
                                 SizedBox(height: 5,)

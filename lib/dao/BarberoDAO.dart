@@ -1,5 +1,5 @@
 import 'package:estructuratrabajofinal/bd/db_helper.dart';
-import 'package:estructuratrabajofinal/clases/Barbero.dart';
+import 'package:estructuratrabajofinal/clases/barbero.dart';
 import 'package:sqflite/sqflite.dart';
 
 class BarberoDao {

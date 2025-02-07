@@ -1,5 +1,5 @@
 import 'package:estructuratrabajofinal/bd/db_helper.dart';
-import 'package:estructuratrabajofinal/clases/Cita.dart';
+import 'package:estructuratrabajofinal/clases/cita.dart';
 import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart';
 
