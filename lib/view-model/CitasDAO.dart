@@ -1,10 +1,12 @@
-import 'package:estructuratrabajofinal/bd/db_helper.dart';
-import 'package:estructuratrabajofinal/clases/cita.dart';
+import 'package:estructuratrabajofinal/model/Cita.dart';
+import 'package:estructuratrabajofinal/service/bd/db_helper.dart';
 import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart';
 
+///Clase Citas con funciones de la bd
+
 class CitasDao {
-  
+  ///Crear una cita por los parametros recibidos
   Future<bool> addCita(Cita cita) async{
     final database= await DBHelper().openDataBase();
     final List<Map<String, dynamic>> result = await database.query(
@@ -27,7 +29,7 @@ class CitasDao {
 
     
   }
-  
+  ///Elimina una cita por el id
   Future<void> eliminarCita(Cita cita) async{
     final database = await DBHelper().openDataBase();
     await database.delete("Cita", where: "id=?", whereArgs: [cita.id]);
@@ -35,14 +37,14 @@ class CitasDao {
 
     
   }
-
+  ///Obtiene todas las citas
   Future<List<Cita>> getCitas() async {
     final database = await DBHelper().openDataBase();
     final List<Map<String, dynamic>> maps = await database.query('Cita');
     print("Consulta Cita: $maps"); 
     return List.generate(maps.length, (i) => Cita.fromMap(maps[i]));
   }
-
+  ///Obtiene las citas por el id del usuario
   Future<List<Cita>> getCitasPorIdUsuario(int idUsuario) async {
     final database = await DBHelper().openDataBase();
     final List<Map<String, dynamic>> maps = await database.query(
@@ -53,7 +55,7 @@ class CitasDao {
     print("Consulta Cita por idUsuario: $maps"); 
     return List.generate(maps.length, (i) => Cita.fromMap(maps[i]));
   }
-
+  ///Obtiene los cirtesdePelo por el id de la cita 
   Future<Map<String, String>?> getCortePeloPorCitaId(int citaId) async {
     final database = await DBHelper().openDataBase();
     final List<Map<String, dynamic>> maps = await database.rawQuery('''
@@ -73,6 +75,7 @@ class CitasDao {
       return null;
     }
   }
+  ///Actualiza si la cita esta acudida o no segun si la fecha de la cita ya ha pasado a la fecha actual, lo cual lo pone en acudida
   Future<void> actualizarAcudido() async{
     final database = await DBHelper().openDataBase();
     final fechaActual = DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());
@@ -85,7 +88,7 @@ class CitasDao {
       ''', [fechaActual]
     );
   }
-
+  ///Obtiene las estadisticas de las citas segun si estan acudidas o no
   Future<Map<int, Map<String, int>>> obtenerEstadisticasCitas() async {
     final database = await DBHelper().openDataBase();
     final result = await database.rawQuery('''

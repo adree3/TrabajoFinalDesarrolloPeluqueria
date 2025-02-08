@@ -1,3 +1,4 @@
+///Clase barbero
 class Barbero {
   final int? id;
   final String nombre;
@@ -13,6 +14,7 @@ class Barbero {
     required this.rutaPortafolio
   });
   
+  ///ToMap para convertirlo a mapa para meterlo en la bd
   Map<String, dynamic> toMap(){
     return{
       'id': id,
@@ -23,6 +25,7 @@ class Barbero {
     };
   }
 
+  ///FromMap convierte de mapa a barero
   factory Barbero.fromMap(Map<String, dynamic> map){
     return Barbero(
       id: map['id'],

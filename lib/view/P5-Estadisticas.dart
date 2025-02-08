@@ -1,14 +1,15 @@
-import 'package:estructuratrabajofinal/dao/citasDAO.dart';
+import 'package:estructuratrabajofinal/view-model/CitasDAO.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Estadisticas extends StatefulWidget {
   const Estadisticas({super.key});
-  State <Estadisticas> createState()=> _principal();
+  State <Estadisticas> createState()=> _Estadisticas();
 
 }
-class _principal extends State<Estadisticas>{
+///Estadisticas de las citas que has ido en un año
+class _Estadisticas extends State<Estadisticas>{
   late Future<Map<int, Map<String, int>>> _datosCitas;
 
   @override
@@ -16,7 +17,7 @@ class _principal extends State<Estadisticas>{
     super.initState();
     _datosCitas = _cargarCitas();
   }
-
+  ///Funcion para que se inicialicen todos los meses del año independientemente si tengan citas o no
   Future<Map<int, Map<String, int>>> _cargarCitas() async {
     final datos = await CitasDao().obtenerEstadisticasCitas();
 
@@ -25,7 +26,7 @@ class _principal extends State<Estadisticas>{
     }
     return datos;
   }
-
+  ///Obtiene el maximo verticalmente de citas y lo añade 2 para que haya margen
   double _obtenerMaximoY(List<BarChartGroupData> barGroups) {
     double maxY = 0;
     for (var group in barGroups) {
@@ -33,7 +34,7 @@ class _principal extends State<Estadisticas>{
         if (rod.toY > maxY) maxY = rod.toY;
       }
     }
-    return maxY + 2; //margen
+    return maxY + 2; 
   }
 
   @override

@@ -1,3 +1,4 @@
+///Class Usuario el cual tiene un atributo estatico que tiene el usuarioActual
 class Usuario {
   final int? id;
   final String nombre;
@@ -5,6 +6,7 @@ class Usuario {
   final String email;
   final int telefono;
   static Usuario? usuarioActual;
+
   Usuario({
     this.id,
     required this.nombre,
@@ -13,6 +15,7 @@ class Usuario {
     required this.telefono,
   });
 
+  ///ToMap para convertirlo a mapa para meterlo en la bd
   Map<String, dynamic> toMap(){
     return {
       'id': id,
@@ -23,6 +26,7 @@ class Usuario {
     };
   }
 
+  ///FromMap convierte de mapa a Usuario
   factory Usuario.fromMap(Map<String, dynamic> map){
     return Usuario(
       id: map['id'],

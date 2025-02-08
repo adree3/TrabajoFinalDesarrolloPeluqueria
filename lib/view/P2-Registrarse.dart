@@ -1,23 +1,24 @@
-import 'package:estructuratrabajofinal/clases/Usuario.dart';
-import 'package:estructuratrabajofinal/dao/usuarioDAO.dart';
-import 'package:estructuratrabajofinal/estructura/p1-IniciarSesion.dart';
+import 'package:estructuratrabajofinal/model/Usuario.dart';
+import 'package:estructuratrabajofinal/view-model/UsuarioDAO.dart';
+import 'package:estructuratrabajofinal/view/P1-IniciarSesion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Registrarse extends StatefulWidget {
   const Registrarse({super.key});
 
-  State<Registrarse> createState()=>_Principal();
+  State<Registrarse> createState()=>_Registrarse();
 
 }
-class _Principal extends State<Registrarse>{
+///Registrarse si no tienes cuenta
+class _Registrarse extends State<Registrarse>{
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _controllerNombre = TextEditingController();
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerTelefono = TextEditingController();
   final TextEditingController _controllerContrasena = TextEditingController();
   final TextEditingController _controllerContrasena2 = TextEditingController();
-
+  ///Comprueba si el email ya existe
   Future<void> _comprobarEmail() async{
     final email= _controllerEmail.text;
 
@@ -41,7 +42,7 @@ class _Principal extends State<Registrarse>{
       );
     }
   }
-
+  ///Crea el usuario con las credenciales proporcionadas
   Future<void> crearUser() async{
     Usuario userNuevo = Usuario(
         nombre: _controllerNombre.text, 

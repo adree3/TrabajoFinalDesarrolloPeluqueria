@@ -1,4 +1,5 @@
-import 'package:estructuratrabajofinal/clases/cortesPelo.dart';
+import 'package:estructuratrabajofinal/model/CortesPelo.dart';
+import 'package:estructuratrabajofinal/view-model/CortePeloDAO.dart';
 import 'package:flutter/material.dart';
 import 'P3_2-HomePortafolio.dart';
 import 'P3_3-HomeBarberos.dart';
@@ -6,17 +7,16 @@ import 'P3_4-HomeReservar.dart';
 import 'P4-Citas.dart';
 import 'P5-Estadisticas.dart';
 import 'P6-Perfil.dart';
-import '../dao/cortePeloDAO.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeServicios extends StatefulWidget {
   const HomeServicios({super.key});
 
   @override
-  State<HomeServicios> createState() => _Principal();
+  State<HomeServicios> createState() => _HomeServicios();
 }
-
-class _Principal extends State<HomeServicios> {
+///Contiene el bottomNavigation y TabBar
+class _HomeServicios extends State<HomeServicios> {
   int _selectIndex = 0;
 
   static const List<Widget> _widgetOptions = <Widget>[
@@ -51,15 +51,13 @@ class _Principal extends State<HomeServicios> {
           BottomNavigationBarItem(icon: Icon(Icons.person), label: AppLocalizations.of(context)!.p31Perfil),
         ],
         currentIndex: _selectIndex,
-        //selectedItemColor: const Color.fromARGB(255, 0, 0, 0),
-        //unselectedItemColor: Color(0xff827462),
         onTap: _onItemTapped,
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
       ),
     );
   }
 }
-
+///TabBar con 3 pestañas; servicios, portafolio y barberos
 class TabBarContent extends StatelessWidget {
   const TabBarContent({super.key});
 
@@ -70,7 +68,7 @@ class TabBarContent extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            color: const Color(0xfffae8d0), // Mismo color que el AppBar
+            color: const Color(0xfffae8d0), 
             child: TabBar(
               tabs: [
                 Tab(text: AppLocalizations.of(context)!.p31Servicios),
@@ -87,10 +85,10 @@ class TabBarContent extends StatelessWidget {
                 fontSize: 15,
               ),
               unselectedLabelColor: Colors.black,
-              indicatorColor: Colors.black, // Color del indicador de la pestaña activa
+              indicatorColor: Colors.black, 
             ),
           ),
-          Expanded(
+          const Expanded(
             child: TabBarView(
               children: [
                 Servicios(),
@@ -108,9 +106,10 @@ class TabBarContent extends StatelessWidget {
 class Servicios extends StatefulWidget {
   const Servicios({super.key});
 
-  State<Servicios> createState()=>_Segunda();
+  State<Servicios> createState()=>_Servicios();
 }
-class _Segunda extends State<Servicios> {
+///Servicios, en el cual te sale los tipos de cortes de pelo que puedes reservar
+class _Servicios extends State<Servicios> {
   late Future<List<CortePelo>> _cortesPelo;
   @override
   void initState() {
@@ -149,11 +148,11 @@ class _Segunda extends State<Servicios> {
               margin: EdgeInsets.all(8),
               padding: EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Color(0xff4a4a4a), // Fondo blanco para cada ítem
-                borderRadius: BorderRadius.circular(8.0), // Bordes redondeados
+                color: Color(0xff4a4a4a), 
+                borderRadius: BorderRadius.circular(8.0), 
                 boxShadow: [
                   BoxShadow(
-                    color:  Color(0xfffae8d0).withOpacity(0.1), // Sombra para los ítems
+                    color:  Color(0xfffae8d0).withOpacity(0.1), 
                     spreadRadius: 1,
                     blurRadius: 3,
                     offset: const Offset(0, 2),

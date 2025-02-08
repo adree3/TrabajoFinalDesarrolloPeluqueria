@@ -1,14 +1,15 @@
-  import 'package:estructuratrabajofinal/clases/barbero.dart';
+import 'package:estructuratrabajofinal/model/Barbero.dart';
+import 'package:estructuratrabajofinal/view-model/BarberoDAO.dart';
   import 'package:flutter/material.dart';
-  import 'package:estructuratrabajofinal/dao/barberoDAO.dart';
   import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
   class HomePortafolio extends StatefulWidget {
     const HomePortafolio({super.key});
 
-    State<HomePortafolio> createState()=>_Principal();
+    State<HomePortafolio> createState()=>_HomePortafolio();
   }
-  class _Principal extends State<HomePortafolio>{
+  ///Segunda pestaña del tabbBar, salen las fotos de los cortes de pelo que hacen los peluqueros
+  class _HomePortafolio extends State<HomePortafolio>{
     late Future<List<Barbero>>_barberos;
 
     @override
@@ -51,9 +52,6 @@
                     itemCount: listaBarberos.length,
                     itemBuilder: (context, index){
                       final barbero = listaBarberos[index];
-                      /*String assetImage = barbero.rutaPortafolio.toString() != null && barbero.rutaPortafolio!.isNotEmpty 
-                        ? barbero.rutaPortafolio! 
-                        : "assets/images/default.jpg";*/
                       return Padding(
                         padding: EdgeInsets.symmetric(vertical: 8.0,horizontal: 16.0),                      
                         child: Column(

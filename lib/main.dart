@@ -1,9 +1,8 @@
 import 'dart:io';
-
-import 'package:estructuratrabajofinal/utils/providerTodos.dart';
+import 'package:estructuratrabajofinal/service/bd/db_helper.dart';
+import 'package:estructuratrabajofinal/view-model/providerTodos.dart';
+import 'package:estructuratrabajofinal/view/P1-IniciarSesion.dart';
 import 'package:flutter/material.dart';
-import 'estructura/p1-IniciarSesion.dart';
-import 'bd/db_helper.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
@@ -86,7 +85,7 @@ class MainApp extends StatelessWidget {
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate, // Agregar esta línea
+            GlobalCupertinoLocalizations.delegate, 
 
           ],
           locale: providertodos.idioma,

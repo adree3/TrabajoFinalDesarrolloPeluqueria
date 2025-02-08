@@ -2,8 +2,9 @@ import 'package:path/path.dart';
 import 'dart:async';
 import 'package:sqflite/sqflite.dart';
 
+///Clase para la configuracion de la base de datos
 class DBHelper{
-  
+  ///Abre la base de datos y en caso de que no este creada se ejecuta el metodo onCreate
   Future<Database> openDataBase() async {
   final databasePath = await getDatabasesPath();
   final path = join(databasePath, 'peluqueria.db');
@@ -114,7 +115,7 @@ class DBHelper{
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
 
-      //CITA (acudido es un boolean)
+      //CITA 
       await db.execute(''' 
         CREATE TABLE Cita (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -145,6 +146,8 @@ class DBHelper{
     }
   }, version: 1);
 }
+
+  ///Eliminar la base de datos para poder hacer comprobaciones
   Future<void> eliminarBD()async{
     final databasePath = await getDatabasesPath();
     final path= join(databasePath, 'peluqueria.db');

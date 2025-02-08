@@ -1,5 +1,4 @@
-import 'package:estructuratrabajofinal/bd/db_helper.dart';
-
+///Class CortePelo
 class CortePelo {
   final int? id;
   final String nombre;
@@ -15,6 +14,7 @@ class CortePelo {
     required this.duracion,
   });
 
+  ///ToMap para convertirlo a mapa para meterlo en la bd
   Map<String,dynamic> toMap(){
     return{
       'id': id,
@@ -25,6 +25,7 @@ class CortePelo {
     };
   }
 
+  ///FromMap convierte de mapa a Corte de pelo
   factory CortePelo.fromMap(Map<String,dynamic> map){
     return CortePelo(
       id: map['id'],
@@ -34,16 +35,6 @@ class CortePelo {
       duracion: map['duracion'],
     );
   }
-
-  Future<bool> existeCortePelo(int cortePeloId) async {
-  final database = await DBHelper().openDataBase();
-  final List<Map<String, dynamic>> result = await database.query(
-    'CortePelo',
-    where: 'id = ?',
-    whereArgs: [cortePeloId],
-  );
-  return result.isNotEmpty;
-}
 
   @override
   String toString(){

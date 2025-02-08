@@ -1,14 +1,15 @@
+import 'package:estructuratrabajofinal/model/Cita.dart';
+import 'package:estructuratrabajofinal/view-model/CitasDAO.dart';
 import 'package:flutter/material.dart';
-import 'package:estructuratrabajofinal/clases/cita.dart';
-import 'package:estructuratrabajofinal/dao/citasDAO.dart';
-import 'package:estructuratrabajofinal/clases/Usuario.dart';
+import 'package:estructuratrabajofinal/model/Usuario.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Citas extends StatefulWidget {
   const Citas({super.key});
-  State<Citas> createState()=> _Principal();
+  State<Citas> createState()=> _Citas();
 }
-class _Principal extends State<Citas>{
+///Se muestran las citas
+class _Citas extends State<Citas>{
   
   late Future<List<Map<String,dynamic>>>_citasConCortes = Future.value([]);
   @override
@@ -16,6 +17,7 @@ class _Principal extends State<Citas>{
     super.initState();
     actualizarAcudidoRecargar();
   }
+  ///Devuelve una lista de mapas que teine una cita con su corte correspondiente
   Future<List<Map<String, dynamic>>> _cargarCitasConCortes() async {
     try {
       final citas = await CitasDao().getCitasPorIdUsuario(Usuario.usuarioActual!.id!);
@@ -33,13 +35,14 @@ class _Principal extends State<Citas>{
       return [];
     }
   }
+  ///Recarga las citas y actualiza si has acudido a una cita o no
   void actualizarAcudidoRecargar()async{
     await CitasDao().actualizarAcudido();
     setState(() {
       _citasConCortes = _cargarCitasConCortes();
     });
   }
-
+  ///Si has acudido se pone en verde, sino no
   Color colorAcudido(String text){
     if(text=="Acudido"){
       return Colors.green;

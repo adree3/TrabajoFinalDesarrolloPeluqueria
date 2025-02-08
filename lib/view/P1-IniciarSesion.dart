@@ -1,22 +1,23 @@
-import 'package:estructuratrabajofinal/bd/db_helper.dart';
-import 'package:estructuratrabajofinal/clases/Usuario.dart';
+import 'package:estructuratrabajofinal/service/bd/db_helper.dart';
+import 'package:estructuratrabajofinal/model/Usuario.dart';
+import 'package:estructuratrabajofinal/view-model/UsuarioDAO.dart';
 import 'package:flutter/material.dart';
 import 'P2-Registrarse.dart';
 import 'P3_1-HomeServicios.dart';
-import '../dao/usuarioDAO.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class IniciarSesion extends StatefulWidget {
   const IniciarSesion({super.key});
 
-  State<IniciarSesion> createState()=>_Principal();
+  State<IniciarSesion> createState()=>_IniciarSesion();
 }
-class _Principal extends State<IniciarSesion>{
+///Iniciar sesion 
+class _IniciarSesion extends State<IniciarSesion>{
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _contrasenaController = TextEditingController();
   final dbhelper= DBHelper();
-
+  ///Comprueba que el usuario exista en la bd
   Future<void> _login() async{
     final email = _emailController.text;
     final contreasena = _contrasenaController.text;
@@ -45,7 +46,7 @@ class _Principal extends State<IniciarSesion>{
   @override
   Widget build(BuildContext context) {
 
-    final anchoPantalla = MediaQuery.of(context).size.width;
+    //final anchoPantalla = MediaQuery.of(context).size.width;
     final altoPantalla = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Container(

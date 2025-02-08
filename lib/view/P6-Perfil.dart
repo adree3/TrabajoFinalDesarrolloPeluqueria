@@ -1,7 +1,7 @@
-import 'package:estructuratrabajofinal/clases/Usuario.dart';
-import 'package:estructuratrabajofinal/dao/usuarioDAO.dart';
-import 'package:estructuratrabajofinal/estructura/p1-IniciarSesion.dart';
-import 'package:estructuratrabajofinal/utils/providerTodos.dart';
+import 'package:estructuratrabajofinal/model/Usuario.dart';
+import 'package:estructuratrabajofinal/view-model/UsuarioDAO.dart';
+import 'package:estructuratrabajofinal/view-model/providerTodos.dart';
+import 'package:estructuratrabajofinal/view/P1-IniciarSesion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
     @override
     State<StatefulWidget> createState() => _perfil();
   }
-
+  ///Contiene informacion del usuario y puede cambiar el idioma, cerrar sesion y eliminar la cuenta
   class _perfil extends State<Perfil>{
     static List<String> idiomas = ['es', 'en'];
 
@@ -20,10 +20,6 @@ import 'package:provider/provider.dart';
     @override
     Widget build(BuildContext context) {
       final temaProvider = Provider.of<ProviderTodos>(context);
-      
-      
-
-
       return Scaffold(
         backgroundColor: Color(0xff5a5a5a),
         appBar: AppBar(
@@ -87,7 +83,7 @@ import 'package:provider/provider.dart';
                       ),
                       const SizedBox(height: 5),
                       Text(
-                        Usuario.usuarioActual!.telefono.toString(), // Teléfono
+                        Usuario.usuarioActual!.telefono.toString(), 
                         style: const TextStyle(
                           color: Colors.grey,
                           fontSize: 16,
@@ -148,7 +144,7 @@ import 'package:provider/provider.dart';
         ),
       );
     }
-
+    ///Muestra un dialogo para saber si quieres cerrar sesion
     void _mostrarDialogoConfirmacionCerrarSesion(BuildContext context) {
       showDialog(
         context: context,
@@ -191,7 +187,7 @@ import 'package:provider/provider.dart';
         },
       );
     }
-
+    ///Muestra un dialogo para asegurarte de que quieres eliminar la cuenta
     void _dialogoEliminarCuenta(BuildContext context) {
       showDialog(
         context: context,
@@ -245,7 +241,7 @@ import 'package:provider/provider.dart';
       );
     }
     
-
+    ///dialogo de cambiar la contraseña (deberia ser mas bonito pero no puedo ejecutar el programa)
     void _dialogo(BuildContext context) {
       final _formKey = GlobalKey<FormState>();
       final TextEditingController _controllerContrasenaActual = TextEditingController();

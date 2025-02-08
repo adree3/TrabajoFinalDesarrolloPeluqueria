@@ -1,13 +1,14 @@
+import 'package:estructuratrabajofinal/model/Barbero.dart';
+import 'package:estructuratrabajofinal/view-model/BarberoDAO.dart';
 import 'package:flutter/material.dart';
-import 'package:estructuratrabajofinal/clases/barbero.dart';
-import 'package:estructuratrabajofinal/dao/barberoDAO.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeBarberos extends StatefulWidget {
   const HomeBarberos({super.key});
-  State<HomeBarberos> createState()=>_Principal();
+  State<HomeBarberos> createState()=>_HomeBarberos();
 }
-class _Principal extends State<HomeBarberos>{
+///Tercera pestaña, barberos donde hay una breve descripción de los barberos
+class _HomeBarberos extends State<HomeBarberos>{
   late Future<List<Barbero>>_barberos;
 
   @override
