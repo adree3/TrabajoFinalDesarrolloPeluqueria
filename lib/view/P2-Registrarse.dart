@@ -115,6 +115,11 @@ class _Registrarse extends State<Registrarse>{
                                 if(value==null||value.isEmpty){
                                   return AppLocalizations.of(context)!.p2IntroduceEmail;
                                 }
+                                final RegExp regex = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$');
+                                if (!regex.hasMatch(value)) {
+                                  return "Introduce un correo valido (adrian@gmail.com)";
+                                  //return AppLocalizations.of(context)!.p2ValidarEmail; DEBERIA SER ESTO PERO NO PUEDO HACER flutter gen-l10n
+                                }
                                 return null;
                                 },
                               decoration: InputDecoration(
@@ -131,6 +136,11 @@ class _Registrarse extends State<Registrarse>{
                               validator: (value){
                                 if(value==null||value.isEmpty){
                                   return AppLocalizations.of(context)!.p2IntroduceTelefono;
+                                }
+                                final RegExp phoneRegex = RegExp(r'^[0-9]+$');
+                                if (!phoneRegex.hasMatch(value)) {
+                                  return "Introduce solo números)";
+                                  //return AppLocalizations.of(context)!.p2ValidarTelefono; DEBERIA SER ESTO PERO NO PUEDO HACER flutter gen-l10n
                                 }
                                 return null;
                                 },
